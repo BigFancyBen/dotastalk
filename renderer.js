@@ -1,8 +1,10 @@
+var electron = require('electron');
+
 let match = "0:[U:1:184041598] 1:[U:1:25526493] 2:[U:1:49697106] 3:[U:1:34782480] 4:[U:1:50909919] 5:[U:1:123328198] 6:[U:1:136058418] 7:[U:1:102597362] 8:[U:1:175791687] 9:[U:1:215584294]";
 lobbyPlayers(match);
 
-ranks = ["Herald", "Guardian", "Crusader", "Archon", "Legend", "Ancient", "Divine"];
-
+const RANKS = ["Herald", "Guardian", "Crusader", "Archon", "Legend", "Ancient", "Divine"];
+const NO_AVATAR_IMG = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg";
 
 function getPlayer(playerID, side){
   var xhr = new XMLHttpRequest();
@@ -44,11 +46,11 @@ function buildPlayer(playerObj, side) {
       playerAvatar.src = playerObj.profile.avatarfull;
     } else {
       playerName.innerHTML = "Unknown";
-      playerAvatar.src = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg";
+      playerAvatar.src = NO_AVATAR_IMG;
     }
   } else {
     playerName.innerHTML = "Unknown";
-    playerAvatar.src = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg";
+    playerAvatar.src = NO_AVATAR_IMG;
   }
 
   if (playerObj.rank_tier != null ) {
@@ -95,7 +97,7 @@ function getRank(rankNum){
   tier = parseInt(rankNum.toString().charAt(0));
   stars = parseInt(rankNum.toString().charAt(1));
   let rank = [];
-  rank[0] = ranks[tier-1] + " " + stars;
+  rank[0] = RANKS[tier-1] + " " + stars;
   rank[1] = "rank_icon_" + tier + ".png";
   if (stars != 0) {
     rank[2] = "rank_star_" + stars + ".png";
