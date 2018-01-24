@@ -1,10 +1,13 @@
 var electron = require('electron');
+const remote = require('electron').remote;
+const ipc = require('electron').ipcRenderer;
 
-let match = "0:[U:1:184041598] 1:[U:1:25526493] 2:[U:1:49697106] 3:[U:1:34782480] 4:[U:1:50909919] 5:[U:1:123328198] 6:[U:1:136058418] 7:[U:1:102597362] 8:[U:1:175791687] 9:[U:1:215584294]";
-lobbyPlayers(match);
+document.getElementById("reset").onclick = function() {resetGame()};
 
 const RANKS = ["Herald", "Guardian", "Crusader", "Archon", "Legend", "Ancient", "Divine"];
 const NO_AVATAR_IMG = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg";
+
+resetGame();
 
 function getPlayer(playerID, side){
   var xhr = new XMLHttpRequest();
@@ -79,12 +82,10 @@ function buildPlayer(playerObj, side) {
 
 
 function lobbyPlayers(playerIDs){
-  players = playerIDs.split("[U:1:");
-  players.shift();
-  for (var value of players) {
-    x = value.split("]");
-    curID = x[0];
-    curSlot = x[1].charAt(1);
+  for (var value of playerIDs) {
+    curID= value.substr(7);
+    curID = curID.substr(0, curID.length - 1);
+    curSlot = value.charAt(0);
     if(curSlot < 5) {
       getPlayer(curID, "radiant");
     } else {
@@ -106,4 +107,21 @@ function getRank(rankNum){
   }
 
   return rank;
+}
+
+function resetGame(){
+  ipc.send('newLog');
+}
+
+ipc.on('updatedMatches', function (event, games) {
+  cullExtra(games[games.length - 1]);
+})
+
+
+function cullExtra(match){
+  regexp = /\((Lobby)(.*?)\)/;
+  lobbyString = match.match(regexp)[2].split(" ").splice(3);
+  document.getElementById("dire").innerHTML = "<h2>Dire</h2>";
+  document.getElementById("radiant").innerHTML = "<h2>Radiant</h2>";
+  lobbyPlayers(lobbyString);
 }

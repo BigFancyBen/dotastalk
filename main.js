@@ -1,8 +1,11 @@
 const { app, BrowserWindow } = require('electron');
 const path = require ('path');
+const electron = require('electron');
 const { setMainMenu } = require('./main-menu');
+const { parseLog } = require('./logwatch');
 require('electron-debug')({showDevTools: true});
 const storage = require('electron-json-storage');
+const ipc = electron.ipcMain;
 
 let mainWindow;
 let logPath;
@@ -10,9 +13,9 @@ let logPath;
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
     show: false,
-    resizable: false,
-    width: 810,
-    height: 760
+    resizable: true,
+    width: 1000,
+    height: 900
   });
   mainWindow.loadURL(path.join('file://', __dirname, 'index.html'));
   setMainMenu(mainWindow);
@@ -26,3 +29,7 @@ app.on('ready', () => {
     mainWindow.show();
   });
 });
+
+ipc.on('newLog', function (event) {
+  event.sender.send('updatedMatches', parseLog(mainWindow.serverLog.path));
+})
