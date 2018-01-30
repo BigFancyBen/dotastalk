@@ -9,13 +9,46 @@ const NO_AVATAR_IMG = "https://steamcdn-a.akamaihd.net/steamcommunity/public/ima
 
 resetGame();
 
-function getPlayer(playerID, side){
+function resetGame(){
+  ipc.send('newLog');
+}
+
+ipc.on('updatedMatches', function (event, games) {
+  buildMatch(games[games.length - 1]);
+})
+
+function buildMatch(matchInfo) {
+  //make api calls to get data for all players
+  //build match object to return
+  let match = {};
+  if(matchInfo.includes("DOTA_GAMEMODE_CUSTOM")){
+    match.gameMode = "Custom";
+  } else {
+    matchRegex = /([DOTA])\w+/;
+    match.gameMode = matchInfo.match(matchRegex)[0];
+  }
+  lobbyRegex = /\((Lobby)(.*?)\)/;
+  playerIDs = matchInfo.match(lobbyRegex)[2].split(" ").splice(3);
+  match.players = [];
+  for (var value of playerIDs) {
+    curID= value.substr(7);
+    curID = curID.substr(0, curID.length - 1);
+    curSlot = value.charAt(0);
+    getPlayer(curID, curSlot, function(results) {
+      match.players.push(results);
+    });
+  }
+  console.log(match);
+  document.getElementById("match").innerHTML = match; 
+}
+
+function getPlayer(playerID, slot, callback){
   var xhr = new XMLHttpRequest();
   xhr.open("GET", "https://api.opendota.com/api/players/" + playerID, true);
   xhr.onload = function (e) {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
-        buildPlayer(xhr.responseText, side);
+        callback(buildPlayer(xhr.responseText, slot));
       } else {
         console.error(xhr.statusText);
       }
@@ -27,71 +60,37 @@ function getPlayer(playerID, side){
   xhr.send(null);
 }
 
-function buildPlayer(playerObj, side) {
-  playerObj = JSON.parse(playerObj);
-  let player = document.createElement('div');
-  let playerName = document.createElement('div');
-  let playerRank = document.createElement('div');
-  var playerAvatar = document.createElement("img");
-  var playerRankIcon = document.createElement("img");
-  var playerRankStars = document.createElement("img");
+function buildPlayer(playerInfo, slotNum){
+  playerObj = JSON.parse(playerInfo);
   let rankStuff;
-  player.className = 'player';
-  playerName.className = 'player-name';
-  playerRank.className = 'player-rank';
-  playerAvatar.className = 'player-avatar';
-  playerRankIcon.className = 'player-rank-icon';
-  playerRankStars.className = 'player-rank-stars';
+  let playerData = {};
+  playerData.name = "Unknown";
+  playerData.avatar = NO_AVATAR_IMG;
 
-  if (playerObj.profile != null ) {
-    playerName.innerHTML = playerObj.profile.personaname;
-    if (playerObj.profile.avatarfull != null){
-      playerAvatar.src = playerObj.profile.avatarfull;
+    if (playerObj.profile != null ) {
+      playerData.name = playerObj.profile.personaname;
+      if (playerObj.profile.avatarfull != null){
+        playerData.avatar = playerObj.profile.avatarfull;
+      }
+    }
+    if (playerObj.rank_tier != null ) {
+      rankStuff = getRank(playerObj.rank_tier);
+      if(playerObj.leaderboard_rank != null) {
+        playerData.rank = "Rank: " + playerObj.leaderboard_rank;
+      } else {
+        playerData.rank = rankStuff[0];
+      }
+      playerData.rank_icon = "./assets/images/rank_icons/" + rankStuff[1];
+      if (rankStuff[2] != 0 ){
+        playerData.rank_stars = "./assets/images/rank_icons/" + rankStuff[2];
+      }
     } else {
-      playerName.innerHTML = "Unknown";
-      playerAvatar.src = NO_AVATAR_IMG;
+      playerData.rank = "Unranked";
+      playerData.rank_icon = "./assets/images/rank_icons/rank_icon_0.png";
     }
-  } else {
-    playerName.innerHTML = "Unknown";
-    playerAvatar.src = NO_AVATAR_IMG;
-  }
 
-  if (playerObj.rank_tier != null ) {
-    rankStuff = getRank(playerObj.rank_tier);
-    if(playerObj.leaderboard_rank != null) {
-      playerRank.innerHTML = "Rank: " + playerObj.leaderboard_rank;
-    } else {
-      playerRank.innerHTML = rankStuff[0];
-    }
-    playerRankIcon.src = "./assets/images/rank_icons/" + rankStuff[1];
-    if (rankStuff[2] != 0 ){
-      playerRankStars.src = "./assets/images/rank_icons/" + rankStuff[2];
-    }
-  } else {
-    playerRank.innerHTML = "Unranked";
-    playerRankIcon.src = "./assets/images/rank_icons/rank_icon_0.png";
-  }
-
-  player.appendChild(playerAvatar);
-  player.appendChild(playerName);
-  player.appendChild(playerRank);
-  player.appendChild(playerRankIcon);
-  player.appendChild(playerRankStars);
-  document.getElementById(side).appendChild(player);
-}
-
-
-function lobbyPlayers(playerIDs){
-  for (var value of playerIDs) {
-    curID= value.substr(7);
-    curID = curID.substr(0, curID.length - 1);
-    curSlot = value.charAt(0);
-    if(curSlot < 5) {
-      getPlayer(curID, "radiant");
-    } else {
-      getPlayer(curID, "dire");
-    }
-  }
+    playerData.side = (slotNum < 5 ) ? 'Radiant' : "Dire";
+    return playerData;
 }
 
 function getRank(rankNum){
@@ -107,21 +106,4 @@ function getRank(rankNum){
   }
 
   return rank;
-}
-
-function resetGame(){
-  ipc.send('newLog');
-}
-
-ipc.on('updatedMatches', function (event, games) {
-  cullExtra(games[games.length - 1]);
-})
-
-
-function cullExtra(match){
-  regexp = /\((Lobby)(.*?)\)/;
-  lobbyString = match.match(regexp)[2].split(" ").splice(3);
-  document.getElementById("dire").innerHTML = "<h2>Dire</h2>";
-  document.getElementById("radiant").innerHTML = "<h2>Radiant</h2>";
-  lobbyPlayers(lobbyString);
 }

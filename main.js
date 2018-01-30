@@ -6,6 +6,7 @@ const { parseLog } = require('./logwatch');
 require('electron-debug')({showDevTools: true});
 const storage = require('electron-json-storage');
 const ipc = electron.ipcMain;
+var watch = require('node-watch');
 
 let mainWindow;
 let logPath;
@@ -24,6 +25,9 @@ app.on('ready', () => {
     mainWindow.serverLog = {
       'path': data.path[0]
     };
+    watch(mainWindow.serverLog.path, { recursive: true }, function(evt, name) {
+      event.sender.send('updatedMatches', parseLog(mainWindow.serverLog.path));
+    });
   });
   mainWindow.on('ready-to-show', () => {
     mainWindow.show();
