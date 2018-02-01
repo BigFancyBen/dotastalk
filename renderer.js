@@ -36,10 +36,10 @@ function buildMatch(matchInfo) {
     curSlot = value.charAt(0);
     getPlayer(curID, curSlot, function(results) {
       match.players.push(results);
+      console.log(results.name + " is " + results.rank);
     });
   }
-  console.log(match);
-  document.getElementById("match").innerHTML = match; 
+  console.log(match.gameMode);
 }
 
 function getPlayer(playerID, slot, callback){
