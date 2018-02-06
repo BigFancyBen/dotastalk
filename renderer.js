@@ -34,34 +34,47 @@ function buildMatch(matchInfo) {
     curID= value.substr(7);
     curID = curID.substr(0, curID.length - 1);
     curSlot = value.charAt(0);
-    getPlayer(curID, curSlot, function(results) {
-      match.players.push(results);
-      console.log(results.name + " is " + results.rank);
-    });
+    // getPlayer(curID, curSlot, function(results) {
+    //   match.players.push(results);
+
+    // });
+    getPlayer(curID, curSlot).then((data) => {
+      match.players.push(data);
+      if (match.players.length > 9) {
+        //console.log(match);
+        console.log(JSON.stringify(match));
+        //match.players.map(console.log)
+      }
+    })
   }
-  console.log(match.gameMode);
 }
 
-function getPlayer(playerID, slot, callback){
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", "https://api.opendota.com/api/players/" + playerID, true);
-  xhr.onload = function (e) {
-    if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-        callback(buildPlayer(xhr.responseText, slot));
-      } else {
-        console.error(xhr.statusText);
-      }
-    }
-  };
-  xhr.onerror = function (e) {
-    console.error(xhr.statusText);
-  };
-  xhr.send(null);
+function getPlayer(playerID, slot) {
+  return window.fetch(`https://api.opendota.com/api/players/${playerID}`, {method: 'get'})
+      .then((response) => response.json())
+      .then((data) => buildPlayer(data, slot))
 }
+
+// function getPlayer(playerID, slot, callback){
+//   var xhr = new XMLHttpRequest();
+//   xhr.open("GET", "https://api.opendota.com/api/players/" + playerID, true);
+//   xhr.onload = function (e) {
+//     if (xhr.readyState === 4) {
+//       if (xhr.status === 200) {
+//         callback(buildPlayer(xhr.responseText, slot));
+//       } else {
+//         console.error(xhr.statusText);
+//       }
+//     }
+//   };
+//   xhr.onerror = function (e) {
+//     console.error(xhr.statusText);
+//   };
+//   xhr.send(null);
+// }
 
 function buildPlayer(playerInfo, slotNum){
-  playerObj = JSON.parse(playerInfo);
+  playerObj = playerInfo;
   let rankStuff;
   let playerData = {};
   playerData.name = "Unknown";

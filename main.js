@@ -25,7 +25,7 @@ app.on('ready', () => {
     mainWindow.serverLog = {
       'path': data.path[0]
     };
-    watch(mainWindow.serverLog.path, { recursive: true }, function(evt, name) {
+    watch(mainWindow.serverLog.path, { recursive: true }, function(event, name) {
       event.sender.send('updatedMatches', parseLog(mainWindow.serverLog.path));
     });
   });
