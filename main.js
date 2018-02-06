@@ -26,7 +26,7 @@ app.on('ready', () => {
       'path': data.path[0]
     };
     watch(mainWindow.serverLog.path, { recursive: true }, function(event, name) {
-      event.sender.send('updatedMatches', parseLog(mainWindow.serverLog.path));
+      mainWindow.webContents.send( 'updatedMatches', parseLog(mainWindow.serverLog.path));
     });
   });
   mainWindow.on('ready-to-show', () => {
