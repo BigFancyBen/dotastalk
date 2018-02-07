@@ -1,7 +1,9 @@
 var electron = require('electron');
 const remote = require('electron').remote;
 const ipc = require('electron').ipcRenderer;
-
+const Handlebars = require('handlebars');
+var source   = document.getElementById("entry-template").innerHTML;
+var template = Handlebars.compile(source);
 document.getElementById("reset").onclick = function() {resetGame()};
 
 const RANKS = ["Herald", "Guardian", "Crusader", "Archon", "Legend", "Ancient", "Divine"];
@@ -34,16 +36,11 @@ function buildMatch(matchInfo) {
     curID= value.substr(7);
     curID = curID.substr(0, curID.length - 1);
     curSlot = value.charAt(0);
-    // getPlayer(curID, curSlot, function(results) {
-    //   match.players.push(results);
-
-    // });
     getPlayer(curID, curSlot).then((data) => {
       match.players.push(data);
       if (match.players.length > 9) {
-        //console.log(match);
-        console.log(JSON.stringify(match));
-        //match.players.map(console.log)
+        var html = template(match);
+        document.getElementById("game").innerHTML = html;
       }
     })
   }

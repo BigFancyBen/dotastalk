@@ -7,9 +7,17 @@
   </head>
   <body>
     <button id="reset">New Match</button>
-    <div id="match">
-
-    </div>
+    <div id="game"></div>
+    <script id="entry-template" type="text/x-handlebars-template">
+      <div class='entry'>
+        <h1>{{gameMode}}</h1>
+        <div class='body'>
+        {{#each players}}
+          <li>{{this.name}} is {{this.rank}}</li>
+        {{/each}}
+        </div>
+      </div>
+    </script>
   <script>
     require('./renderer.js');
   </script>
