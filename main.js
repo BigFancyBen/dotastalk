@@ -3,6 +3,7 @@ const path = require ('path');
 const electron = require('electron');
 const { setMainMenu } = require('./main-menu');
 const { parseLog } = require('./logwatch');
+const { setStorage } = require('./setStorage');
 require('electron-debug')({showDevTools: true});
 const storage = require('electron-json-storage');
 const ipc = electron.ipcMain;
@@ -20,20 +21,14 @@ app.on('ready', () => {
   });
   mainWindow.loadURL(path.join('file://', __dirname, 'index.html'));
   setMainMenu(mainWindow);
-  storage.get('serverLog', function(error, data) {
-    if (error) throw error;
-    mainWindow.serverLog = {
-      'path': data.path[0]
-    };
-    watch(mainWindow.serverLog.path, { recursive: true }, function(event, name) {
-      mainWindow.webContents.send( 'updatedMatches', parseLog(mainWindow.serverLog.path));
-    });
-  });
+  setStorage(mainWindow);
   mainWindow.on('ready-to-show', () => {
     mainWindow.show();
   });
 });
 
 ipc.on('newLog', function (event) {
-  event.sender.send('updatedMatches', parseLog(mainWindow.serverLog.path));
+  if(typeof mainWindow.serverLog != "undefined"){
+    event.sender.send('updatedMatches', parseLog(mainWindow.serverLog.path));
+  }
 })

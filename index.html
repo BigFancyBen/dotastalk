@@ -9,12 +9,42 @@
     <button id="reset">New Match</button>
     <div id="game"></div>
     <script id="entry-template" type="text/x-handlebars-template">
-      <div class='entry'>
-        <h1>{{gameMode}}</h1>
-        <div class='body'>
-        {{#each players}}
-          <li>{{this.name}} is {{this.rank}}</li>
-        {{/each}}
+      <div class='main'>
+        <h2 class="side">Radiant</h2>
+        <div class="team">
+          {{#each players}}
+            {{#if side}}
+            <div class="player">
+              <img src="{{this.avatar}}" alt="" class="player-avatar">
+              <p class="player-name">{{this.name}}</p>
+              <p class="player-rank" >{{this.rank}}</p>
+              <div class="rank">
+                <img src="{{rank_icon}}" alt="" class="player-rank-icon">
+                {{#if rank_stars}}
+                  <img src="{{rank_stars}}" alt="" class="player-rank-stars">
+                {{/if}}
+              </div>
+            </div>
+            {{/if}}
+          {{/each}}
+        </div>
+        <h2 class="side">Dire</h2>
+        <div class="team">
+          {{#each players}}
+            {{#unless side}}
+            <div class="player">
+              <img src="{{this.avatar}}" alt="" class="player-avatar">
+              <p class="player-name">{{this.name}}</p>
+              <p class="player-rank" >{{this.rank}}</p>
+              <div class="rank">
+                <img src="{{rank_icon}}" alt="" class="player-rank-icon">
+                {{#if rank_stars}}
+                  <img src="{{rank_stars}}" alt="" class="player-rank-stars">
+                {{/if}}
+              </div>
+            </div>
+            {{/unless}}
+          {{/each}}
         </div>
       </div>
     </script>

@@ -2,7 +2,8 @@ const { dialog, app, nativeImage } = require('electron');
 const fs = require('fs');
 const path = require('path');
 const storage = require('electron-json-storage');
-
+const { parseLog } = require('./logwatch');
+var watch = require('node-watch');
 module.exports = {showOpenDialog};
 
 function showOpenDialog(browserWindow) {
@@ -13,6 +14,12 @@ function showOpenDialog(browserWindow) {
     if(filepaths) {
       storage.set('serverLog', { path: filepaths }, function(error) {
         if (error) throw error;
+      });
+      console.log(filepaths);
+      browserWindow.webContents.send( 'updatedMatches', parseLog(filepaths[0]));
+
+      watch(filepaths[0], { recursive: true }, function(event, name) {
+        browserWindow.webContents.send( 'updatedMatches', parseLog(filepaths[0]));
       });
       return;
     }

@@ -25,6 +25,7 @@ function buildMatch(matchInfo) {
   let match = {};
   if(matchInfo.includes("DOTA_GAMEMODE_CUSTOM")){
     match.gameMode = "Custom";
+    return match;
   } else {
     matchRegex = /([DOTA])\w+/;
     match.gameMode = matchInfo.match(matchRegex)[0];
@@ -39,6 +40,7 @@ function buildMatch(matchInfo) {
     getPlayer(curID, curSlot).then((data) => {
       match.players.push(data);
       if (match.players.length > 9) {
+        console.log(match);
         var html = template(match);
         document.getElementById("game").innerHTML = html;
       }
@@ -99,7 +101,7 @@ function buildPlayer(playerInfo, slotNum){
       playerData.rank_icon = "./assets/images/rank_icons/rank_icon_0.png";
     }
 
-    playerData.side = (slotNum < 5 ) ? 'Radiant' : "Dire";
+    playerData.side = (slotNum < 5 ) ? true : false;
     return playerData;
 }
 
