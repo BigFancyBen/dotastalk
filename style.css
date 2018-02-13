@@ -7,7 +7,7 @@ body {
 
 .team{
   display: flex;
-  height: 310px;
+  height: 290px;
 }
 
 .player {
@@ -60,7 +60,7 @@ h2 {
 }
 
 .rank  {
-  width: 100px;
+  width: 80px;
   display: block;
   margin: auto;
   margin-top: -15px;
