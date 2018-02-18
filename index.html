@@ -6,15 +6,15 @@
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
-    <button id="reset">New Match</button>
+    <div id="reset"></div>
     <div id="game"></div>
     <script id="entry-template" type="text/x-handlebars-template">
       <div class='main'>
         <h2 class="side">Radiant</h2>
-        <div class="team">
+        <div class="team" id="radiant">
           {{#each players}}
             {{#if side}}
-            <div class="player">
+            <div class="player" id="{{this.id}}">
               <img src="{{this.avatar}}" alt="" class="player-avatar">
               <p class="player-name">{{this.name}}</p>
               <p class="player-rank" >{{this.rank}}</p>
@@ -29,10 +29,10 @@
           {{/each}}
         </div>
         <h2 class="side">Dire</h2>
-        <div class="team">
+        <div class="team" id="dire">
           {{#each players}}
             {{#unless side}}
-            <div class="player">
+            <div class="player" id="{{this.id}}">
               <img src="{{this.avatar}}" alt="" class="player-avatar">
               <p class="player-name">{{this.name}}</p>
               <p class="player-rank" >{{this.rank}}</p>

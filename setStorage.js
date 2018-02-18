@@ -1,6 +1,7 @@
 const electron = require('electron');
 const storage = require('electron-json-storage');
 const ipc = electron.ipcMain;
+const { parseLog } = require('./logwatch');
 var watch = require('node-watch');
 
 module.exports = {setStorage};
