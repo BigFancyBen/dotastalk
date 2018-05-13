@@ -81,7 +81,11 @@ function buildPlayer(playerInfo, slotNum){
         playerData.rank_stars = "./assets/images/rank_icons/" + rankStuff[2];
       }
     } else {
-      playerData.rank = "Unranked";
+      if (playerObj.mmr_estimate.estimate != undefined ){
+        playerData.rank = "MMR Estimate " + playerObj.mmr_estimate.estimate;
+      } else{
+        playerData.rank = "Unknown"
+      }
       playerData.rank_icon = "./assets/images/rank_icons/rank_icon_0.png";
     }
 
