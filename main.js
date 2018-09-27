@@ -4,7 +4,7 @@ const electron = require('electron');
 const { setMainMenu } = require('./main-menu');
 const { parseLog } = require('./logwatch');
 const { setStorage } = require('./setStorage');
-//require('electron-debug')({showDevTools: true});
+require('electron-debug')({showDevTools: true});
 const storage = require('electron-json-storage');
 const ipc = electron.ipcMain;
 var watch = require('node-watch');
@@ -26,10 +26,13 @@ app.on('ready', () => {
   mainWindow.on('ready-to-show', () => {
     mainWindow.show();
   });
-});
+  mainWindow.on('closed', () => {
+    app.quit();
+  });
 
-ipc.on('newLog', function (event) {
-  if(typeof mainWindow.serverLog != "undefined"){
-    event.sender.send('updatedMatches', parseLog(mainWindow.serverLog.path));
-  }
-})
+  ipc.on('newLog', function (event) {
+    if(typeof mainWindow.serverLog != "undefined"){
+      event.sender.send('updatedMatches', parseLog(mainWindow.serverLog.path));
+    }
+  })
+});
