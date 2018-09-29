@@ -10,39 +10,42 @@
     <div id="game"></div>
     <script id="entry-template" type="text/x-handlebars-template">
       <div class='main'>
-        <h2 class="side">Radiant</h2>
         <div class="team" id="radiant">
+          <h2 class="side">Radiant</h2>
           {{#each players}}
             {{#if side}}
             <div class="player" id="{{this.id}}">
-              <img src="{{this.avatar}}" alt="" class="player-avatar">
               <p class="player-name">{{this.name}}</p>
-              <p class="player-rank" >{{this.rank}}</p>
+              <img src="{{this.avatar}}" alt="" class="player-avatar">
               <div class="rank">
                 <img src="{{rank_icon}}" alt="" class="player-rank-icon">
                 {{#if rank_stars}}
                   <img src="{{rank_stars}}" alt="" class="player-rank-stars">
                 {{/if}}
+                <p class="player-rank" >{{this.rank}}</p>
               </div>
             </div>
             {{/if}}
           {{/each}}
         </div>
-        <h2 class="side">Dire</h2>
+        <div id="featured-player">
+
+        </div>
         <div class="team" id="dire">
+          <h2 class="side">Dire</h2>
           {{#each players}}
             {{#unless side}}
-            <div class="player" id="{{this.id}}">
-              <img src="{{this.avatar}}" alt="" class="player-avatar">
-              <p class="player-name">{{this.name}}</p>
-              <p class="player-rank" >{{this.rank}}</p>
-              <div class="rank">
-                <img src="{{rank_icon}}" alt="" class="player-rank-icon">
-                {{#if rank_stars}}
-                  <img src="{{rank_stars}}" alt="" class="player-rank-stars">
-                {{/if}}
+              <div class="player" id="{{this.id}}">
+                <p class="player-name">{{this.name}}</p>
+                <img src="{{this.avatar}}" alt="" class="player-avatar">
+                <div class="rank">
+                  <img src="{{rank_icon}}" alt="" class="player-rank-icon">
+                  {{#if rank_stars}}
+                    <img src="{{rank_stars}}" alt="" class="player-rank-stars">
+                  {{/if}}
+                  <p class="player-rank" >{{this.rank}}</p>
+                </div>
               </div>
-            </div>
             {{/unless}}
           {{/each}}
         </div>

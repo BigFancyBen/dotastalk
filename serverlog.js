@@ -15,7 +15,6 @@ function showOpenDialog(browserWindow) {
       storage.set('serverLog', { path: filepaths }, function(error) {
         if (error) throw error;
       });
-      console.log(filepaths);
       browserWindow.webContents.send( 'updatedMatches', parseLog(filepaths[0]));
 
       watch(filepaths[0], { recursive: true }, function(event, name) {

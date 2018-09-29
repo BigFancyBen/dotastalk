@@ -15,6 +15,18 @@ function setMainMenu(mainWindow) {
           click() {
             showOpenDialog(mainWindow);
           }
+        },
+        {
+          label: 'Where is server_log.txt?',
+          click() {
+            require('electron').shell.openExternal('https://github.com/BigFancyBen/dotastalk/wiki/Where-to-find-the-server_log.txt');
+          }
+        },
+        {
+          label: 'Which player are you?',
+          click() {
+            mainWindow.webContents.send('selectPlayer');
+          }
         }
       ]
     }

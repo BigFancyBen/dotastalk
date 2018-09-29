@@ -17,13 +17,19 @@ app.on('ready', () => {
     show: false,
     resizable: false,
     width: 1000,
-    height: 720,
+    height: 735,
     icon: path.join(__dirname, 'icon_64x64.png')
   });
   mainWindow.loadURL(path.join('file://', __dirname, 'index.html'));
   setMainMenu(mainWindow);
   setStorage(mainWindow);
   mainWindow.on('ready-to-show', () => {
+    storage.get('currentUser', function(error, data) {
+      if (error){ throw error;}
+      if(data.hasOwnProperty("player")){
+        mainWindow.webContents.send('currentPlayer', data.player);
+      }
+    });
     mainWindow.show();
   });
   mainWindow.on('closed', () => {
@@ -31,8 +37,21 @@ app.on('ready', () => {
   });
 
   ipc.on('newLog', function (event) {
+    storage.get('currentUser', function(error, data) {
+      if (error){ throw error;}
+      if(data.hasOwnProperty("player")){
+        mainWindow.webContents.send('currentPlayer', data.player);
+      }
+    });
     if(typeof mainWindow.serverLog != "undefined"){
       event.sender.send('updatedMatches', parseLog(mainWindow.serverLog.path));
     }
+  })
+
+  ipc.on('updatePlayer', function (event, arg){
+    storage.set('currentUser', {player: arg}, function(error) {
+      if (error) throw error;
+    });
+    mainWindow.webContents.send('currentPlayer', arg);
   })
 });
