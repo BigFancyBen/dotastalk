@@ -17,8 +17,8 @@ app.on('ready', () => {
     show: false,
     resizable: false,
     width: 1000,
-    height: 735,
-    icon: path.join(__dirname, 'icon_64x64.png')
+    height: 755,
+    icon: path.join(__dirname, 'assets/images/icon_64x64.png')
   });
   mainWindow.loadURL(path.join('file://', __dirname, 'index.html'));
   setMainMenu(mainWindow);

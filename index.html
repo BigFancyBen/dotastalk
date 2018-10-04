@@ -8,7 +8,7 @@
   <body>
     <div id="reset"></div>
     <div id="game"></div>
-    <script id="entry-template" type="text/x-handlebars-template">
+    <script id="teams-overview" type="text/x-handlebars-template">
       <div class='main'>
         <div class="team" id="radiant">
           <h2 class="side">Radiant</h2>
@@ -29,7 +29,13 @@
           {{/each}}
         </div>
         <div id="featured-player">
-
+          <div class="rank">
+            <img src="{{rank_icon}}" alt="" class="player-rank-icon">
+            {{#if rank_stars}}
+              <img src="{{rank_stars}}" alt="" class="player-rank-stars">
+            {{/if}}
+            <p class="player-rank" >{{this.rank}}</p>
+          </div>
         </div>
         <div class="team" id="dire">
           <h2 class="side">Dire</h2>

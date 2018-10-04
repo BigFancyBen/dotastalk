@@ -2,8 +2,8 @@ var electron = require('electron');
 const remote = require('electron').remote;
 const ipc = require('electron').ipcRenderer;
 const Handlebars = require('handlebars');
-var source   = document.getElementById("entry-template").innerHTML;
-var template = Handlebars.compile(source);
+var template = Handlebars.compile(document.getElementById("teams-overview").innerHTML);
+
 document.getElementById("reset").onclick = function() {resetGame()};
 const shell = require('electron').shell;
 
@@ -132,8 +132,6 @@ function buildPlayer(playerInfo, slotNum){
     } else {
       if (playerObj.mmr_estimate.estimate != undefined ){
         playerData.rank = "~" + playerObj.mmr_estimate.estimate +  " MMR";
-      } else{
-        playerData.rank = "Unknown"
       }
       playerData.rank_icon = "./assets/images/rank_icons/rank_icon_0.png";
     }
