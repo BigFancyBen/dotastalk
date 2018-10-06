@@ -16,8 +16,8 @@ app.on('ready', () => {
   mainWindow = new BrowserWindow({
     show: false,
     resizable: false,
-    width: 1000,
-    height: 755,
+    width: 785,
+    height: 785,
     icon: path.join(__dirname, 'assets/images/icon_64x64.png')
   });
   mainWindow.loadURL(path.join('file://', __dirname, 'index.html'));
