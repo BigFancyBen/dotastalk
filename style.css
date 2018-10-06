@@ -4,6 +4,7 @@ body {
   overflow: hidden;
   margin-bottom: 50px;
   background-color: #222629;
+  text-rendering: optimizeLegibility;
 }
 
 .team{
@@ -16,14 +17,13 @@ body {
   cursor: pointer;
   position: relative;
   box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
-  transition: all 0.1s;
+  transition: box-shadow .2s;
   background-color: #6B6E70;
   border-radius: 8px;
 }
 
 .player:hover {
-  box-shadow: 0 7px 8px -4px rgba(0,0,0,.3), 0 12px 17px 2px rgba(0,0,0,.21), 0 5px 22px 4px rgba(0,0,0,.18);
-  transform: scale(1.02);
+  box-shadow: 0 6px 6px -4px rgba(0,0,0,.6), 0 6px 8px 0 rgba(0,0,0,.42), 0 2px 16px 0 rgba(0,0,0,.36);
 }
 
 .player-name {
@@ -124,14 +124,12 @@ h2 {
   border-radius: 8px;
   border: 8px black solid;
   background-color: #6B6E70;
-  transition: opacity .5s;
   background: url("https://ih0.redbubble.net/image.191255259.5112/flat,550x550,075,f.u1.jpg");
-  transition: all 0.1s;
+  transition: opacity 0.5s, box-shadow .2s;
 }
 
 #featured-player:hover {
   box-shadow: 0 7px 8px -4px rgba(0,0,0,.3), 0 12px 17px 2px rgba(0,0,0,.21), 0 5px 22px 4px rgba(0,0,0,.18);
-  transform: scale(1.02);
 }
 
 #featured-player .name-row {
@@ -301,7 +299,7 @@ h2 {
   right: 5px;
   background-image: url('./assets/images/reload.png');
   background-size: cover;
-  transition: .5s ease-in-out;
+  transition: all .5s ease-in-out;
 }
 
 #reset:hover{
