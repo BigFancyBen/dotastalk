@@ -154,9 +154,29 @@ h2 {
   width: 100%;
   height: 155px;
   margin-top: -2px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+#featured-player .card-avatar {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  margin-top: -2px;
+  border: 2px solid #6B6E70;
+  box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+}
+
+#featured-player .card-bg {
   background: url("https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/84/841949ae22447f1d91e84fa4f7e3926bee721b0b_full.jpg");
   background-size: cover;
-  background-position: center top;
+  background-position: center center;
+  filter: blur(5px);
+  width: calc(100% + 14px);
+  height: calc(100% + 14px);
+  margin: -10px;
 }
 
 #featured-player .info-row {
