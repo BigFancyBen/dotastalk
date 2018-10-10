@@ -1,4 +1,7 @@
-# Modern and Minimal Electron + React Starter Kit
+# Modern and Minimal Electron + React + React Router Starter Kit
+
+README based on the [original start kit](https://github.com/pbarbiero/basic-electron-react-boilerplate).
+
 _Electron, React, Webpack -- Modern and up-to-date, with a handful of quality of life features included_
 
 I made this starter kit as most boilerplates were either out-of-date, heavy handed, or enforced a structure on me that I just didnt like.
