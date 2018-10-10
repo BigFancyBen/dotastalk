@@ -1,0 +1,6 @@
+@import '../../../node_modules/typeface-ibm-plex-sans/index.css';
+@import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+* {
+    font-family: 'IBM Plex Sans', sans-serif !important;
+}
