@@ -3,9 +3,9 @@ const remote = require('electron').remote;
 const ipc = require('electron').ipcRenderer;
 const Handlebars = require('handlebars');
 var template = Handlebars.compile(document.getElementById("teams-overview").innerHTML);
-
 document.getElementById("reset").onclick = function() {resetGame()};
 const shell = require('electron').shell;
+const { buildFeaturedHtml } = require('./featured-player.js');
 
 const RANKS = ["Herald", "Guardian", "Crusader", "Archon", "Legend", "Ancient", "Divine"];
 const NO_AVATAR_IMG = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg";
@@ -39,32 +39,26 @@ function selectUser(){
   clickToShowPlayer();
 }
 
-function showPlayer() {
-  if(activePlayer != "") {
-    return window.fetch(`https://api.opendota.com/api/players/${activePlayer}/wl?included_account_id=${this.id}`, {method: 'get'})
-        .then((response) => response.json())
-        .then((data) => buildPlayerCard(data, this.id)
-    )
-  }
+function showPlayer(){
+  console.log("wat");
 }
 
-function buildPlayerCard (data, id){
-  curMatch = JSON.parse(localStorage.getItem("data"));
-  fp = document.getElementById("featured-player");
-  featuredPlayer = "";
-  for (let i in curMatch) {
-    if(curMatch[i].id == id){
-      featuredPlayer = curMatch[i];
-    }
+function buildPlayerCard (data) {
+  if (data.id != undefined) {
+    fp = document.createElement("div");
+    fp.setAttribute('class', 'featured-player');
+    fp.id = "featured-player-" + data.id;
+    fp.onclick = function() {shell.openExternal("https://www.opendota.com/players/" + data.id)};
+    fp.innerHTML = buildFeaturedHtml(data);
+    document.body.appendChild(fp);
   }
-  fp.onclick = function() {shell.openExternal("https://www.opendota.com/players/" + id)};
-  fp.style.opacity = 1;
-  fp.innerHTML = `You have ${data.win} wins and ${data.lose} losses with ${featuredPlayer.name} in the game`;
+
 }
+
 function clickToShowPlayer() {
   var players = document.getElementsByClassName("player");
   for (var i = 0; i < players.length; i++) {
-    players[i].addEventListener('click', showPlayer, false);
+    players[i].addEventListener('click', showPlayer(players[i].id), false);
     players[i].removeEventListener('click', selectUser, false);
     players[i].classList.remove("fade-out");
   }
@@ -101,15 +95,34 @@ function buildMatch(matchInfo) {
 }
 
 function getPlayer(playerID, slot) {
-  return window.fetch(`https://api.opendota.com/api/players/${playerID}`, {method: 'get'})
-      .then((response) => response.json())
-      .then((data) => buildPlayer(data, slot))
+  activePlayer = "49697106";
+  if(activePlayer != "" && playerID != undefined) {
+    var apiRequest1 = fetch(`https://api.opendota.com/api/players/${activePlayer}/wl?included_account_id=${playerID}`).then(function(response){
+        return response.json()
+    });
+    var apiRequest2 = fetch(`https://api.opendota.com/api/players/${playerID}/recentMatches?significant=0`).then(function(response){
+        return response.json()
+    });
+    var apiRequest3 = fetch(`https://api.opendota.com/api/players/${playerID}`).then(function(response){
+        return response.json()
+    });
+
+    return Promise.all([apiRequest1,apiRequest2,apiRequest3]).then(function(values){
+      namedObj = {};
+      namedObj["wl"] = values[0]
+      namedObj["matches"] = values[1]
+      namedObj["player"] = values[2]
+      return buildPlayer(namedObj, slot);
+    });
+  }
 }
 
 function buildPlayer(playerInfo, slotNum){
-  playerObj = playerInfo;
   let rankStuff;
   let playerData = {};
+  playerData.wl = playerInfo["wl"];
+  playerData.matches= playerInfo["matches"];
+  playerObj = playerInfo["player"];
   playerData.name = "Unknown";
   playerData.avatar = NO_AVATAR_IMG;
 
@@ -137,6 +150,7 @@ function buildPlayer(playerInfo, slotNum){
     }
 
     playerData.side = (slotNum < 5 ) ? true : false;
+    buildPlayerCard(playerData);
     return playerData;
 }
 
@@ -154,17 +168,3 @@ function getRank(rankNum){
 
   return rank;
 }
-
-// function playerProfileLinks() {
-//   let playerDivs = document.getElementsByClassName("player");
-//   for (var i = 0; i < playerDivs.length; i++) {
-//     if (playerDivs[i].id){
-//       let id = playerDivs[i].id;
-//       playerDivs[i].onclick = function() {showMore(id)};
-//     }
-//   }
-// }
-//
-// function addOnclicks(playerID){
-//   shell.openExternal("https://www.opendota.com/players/" + playerID);
-// }

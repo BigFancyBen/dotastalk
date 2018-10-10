@@ -109,7 +109,7 @@ h2 {
   box-shadow: 0px 0px 20px #fff;
 }
 
-#featured-player {
+.featured-player {
   position: fixed;
   cursor: pointer;
   bottom: 40px;
@@ -128,11 +128,11 @@ h2 {
   transition: opacity 0.5s, box-shadow .2s;
 }
 
-#featured-player:hover {
+.featured-player:hover {
   box-shadow: 0 7px 8px -4px rgba(0,0,0,.3), 0 12px 17px 2px rgba(0,0,0,.21), 0 5px 22px 4px rgba(0,0,0,.18);
 }
 
-#featured-player .name-row {
+.featured-player .name-row {
   width: 100%;
   height: 30px;
   border: 2px solid #6B6E70;
@@ -142,14 +142,14 @@ h2 {
   box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
 }
 
-#featured-player .name {
+.featured-player .name {
   margin-top: 7px;
   font-size: 1em;
   margin-left: 7px;
   margin-top: 6px;]
 }
 
-#featured-player .card-img {
+.featured-player .card-img {
   border: 2px solid #6B6E70;
   width: 100%;
   height: 155px;
@@ -160,7 +160,7 @@ h2 {
   justify-content: center;
 }
 
-#featured-player .card-avatar {
+.featured-player .card-avatar {
   position: absolute;
   top: 0;
   height: 100%;
@@ -169,7 +169,7 @@ h2 {
   box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
 }
 
-#featured-player .card-bg {
+.featured-player .card-bg {
   background: url("https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/84/841949ae22447f1d91e84fa4f7e3926bee721b0b_full.jpg");
   background-size: cover;
   background-position: center center;
@@ -179,7 +179,7 @@ h2 {
   margin: -10px;
 }
 
-#featured-player .info-row {
+.featured-player .info-row {
   width: 100%;
   height: 30px;
   border: 2px solid #6B6E70;
@@ -188,10 +188,10 @@ h2 {
   margin-top: -2px;
   position: relative;
 }
-#featured-player .rank {
+.featured-player .rank {
   margin-left: 3px;
 }
-#featured-player .info-row img {
+.featured-player .info-row img {
   float: right;
   margin-right: 8px;
   margin-top: 1px;
@@ -201,7 +201,7 @@ h2 {
   filter: drop-shadow(1px 1px 0 #6B6E70) drop-shadow(-1px -1px 0 #6B6E70) drop-shadow(1px -1px 0 #6B6E70) drop-shadow(-1px 1px 0 #6B6E70);
 }
 
-#featured-player h4 {
+.featured-player h4 {
   margin-top: 7px;
   margin-left: 8px;
   margin-bottom: 0;
@@ -209,7 +209,7 @@ h2 {
   float: left;
 }
 
-#featured-player .wl-row {
+.featured-player .wl-row {
   font-size: .9em;
   float: right;
   height: 20px;
@@ -225,14 +225,14 @@ h2 {
   text-shadow: 1px 1px rgba(0,0,0,.3);
 }
 
-#featured-player .wl-row .wins {
+.featured-player .wl-row .wins {
   display: inline-block;
   margin-left: 5px;
   margin-top: 1px;
   color: #61892F;
 }
 
-#featured-player .wl-row .losses {
+.featured-player .wl-row .losses {
   display: inline-block;
   color: #a33245;
   margin-top: 1px;
@@ -240,7 +240,7 @@ h2 {
   margin-right: 3px;
 }
 
-#featured-player .description {
+.featured-player .description {
   border: 2px solid #6B6E70;
   margin-top: -2px;
   position: relative;
@@ -257,7 +257,7 @@ h2 {
   padding-bottom: 3px;
 }
 
-#featured-player .recent-hero {
+.featured-player .recent-hero {
   float: left;
 }
 
@@ -277,7 +277,7 @@ h2 {
   margin-top: .7em;
 }
 
-#featured-player .hero {
+.featured-player .hero {
   float: left;
   height: 28px;
   filter: drop-shadow(0px 2px 0px rgba(0,0,0,.2));
@@ -287,7 +287,7 @@ h2 {
   border: 2px #6B6E70 solid;
 }
 
-#featured-player .hero-win-loss {
+.featured-player .hero-win-loss {
   background-color: #6B6E70;
   border-radius: 0 8px 8px 0;
   filter: drop-shadow(2px 2px 0px rgba(0,0,0,.2));
@@ -298,7 +298,7 @@ h2 {
   font-size: .7em;
 }
 
-#featured-player .hero-wl-inner {
+.featured-player .hero-wl-inner {
   margin-top: .7em;
   text-align: center;
 }
