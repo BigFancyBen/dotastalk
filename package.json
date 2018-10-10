@@ -24,7 +24,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-react": "^6.24.1",
     "babili-webpack-plugin": "^0.1.2",
-    "css-loader": "^0.28.1",
+    "css-loader": "^1.0.0",
     "dotenv-webpack": "^1.5.7",
     "electron": "^3.0.0",
     "electron-packager": "^9.1.0",
