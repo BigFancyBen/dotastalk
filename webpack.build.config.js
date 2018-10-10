@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BabiliPlugin = require('babili-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
 
 // Config directories
@@ -12,6 +12,7 @@ const OUTPUT_DIR = path.resolve(__dirname, 'dist');
 
 module.exports = {
   entry: SRC_DIR + '/index.js',
+  mode: 'production',
   output: {
     path: OUTPUT_DIR,
     publicPath: './',
@@ -21,10 +22,10 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader'
-        })
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader'
+        ]
       },
       {
         test: /\.jsx?$/,
@@ -44,7 +45,7 @@ module.exports = {
   target: 'electron-renderer',
   plugins: [
     new HtmlWebpackPlugin(),
-    new ExtractTextPlugin('bundle.css'),
+    new MiniCssExtractPlugin({ filename: '[name].css' }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),

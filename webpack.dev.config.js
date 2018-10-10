@@ -10,6 +10,7 @@ const OUTPUT_DIR = path.resolve(__dirname, 'dist');
 
 module.exports = {
   entry: SRC_DIR + '/index.js',
+  mode: 'development',
   output: {
     path: OUTPUT_DIR,
     publicPath: '/',
@@ -51,7 +52,7 @@ module.exports = {
       chunks: false,
       children: false
     },
-    setup() {
+    before() {
       spawn(
         'electron',
         ['.'],
