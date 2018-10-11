@@ -3,10 +3,10 @@
 ### What is this?
 As soon as you accept a match you can see your opponents ranks. Additionally you can quickly access their opendota page to see your win+loss ratio vs them or to check their most picked heroes.
 
-![screenshot of it working](https://i.imgur.com/GVdLhWh.jpg)
+![screenshot of it working](https://i.imgur.com/Bu1nGaN.png)
 
 ### Setup
-If you are looking for an easy install go to releases there is a windows installer.
+If you are looking for an easy install go to the releases tab on github there is a windows installer.
 If running from source a quick npm install and npm start.
 
 ### Once its running
