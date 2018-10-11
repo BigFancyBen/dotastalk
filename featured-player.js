@@ -1,7 +1,7 @@
 module.exports = {buildFeaturedHtml};
 
 function buildFeaturedHtml(data) {
-  var html = `<div id="featured-player">
+  var html = `<div class="featured-player" style="background: url('./assets/images/${data.playerStats.cardBg}')">
    <div class="name-row">
      <h3 class="name">${data.name}</h3>
    </div>

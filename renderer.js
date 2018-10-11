@@ -10,7 +10,6 @@ const { buildFeaturedHtml } = require('./featured-player.js');
 const RANKS = ["Herald", "Guardian", "Crusader", "Archon", "Legend", "Ancient", "Divine"];
 const NO_AVATAR_IMG = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg";
 
-let activePlayer = "";
 resetGame();
 
 function resetGame(){
@@ -18,7 +17,7 @@ function resetGame(){
 }
 
 ipc.on('currentPlayer', function(event, playerID) {
-  activePlayer = playerID;
+  localStorage.setItem("activePlayer", playerID);
 });
 
 ipc.on('updatedMatches', function (event, games) {
@@ -41,14 +40,14 @@ function selectUser(){
 
 function showFeature(){
   playerID = this.id;
-  var players = document.getElementsByClassName("featured-player");
+  var players = document.getElementsByClassName("featured-outer");
   for (var i = 0; i < players.length; i++) {
-    players[i].setAttribute("style", "opacity: 0;");
+    players[i].setAttribute("style", "opacity: 0; display: none;");
   }
   curCard = "featured-player-" + playerID;
   cur = document.getElementById(curCard);
   if (cur != null) {
-    cur.setAttribute("style", "opacity: 1;");
+    cur.setAttribute("style", "opacity: 1; display: block;");
   }
 }
 
@@ -56,7 +55,9 @@ function buildPlayerCard (data) {
   if (data.id != undefined) {
     data.playerStats = analyzeMatches(data.matches);
     fp = document.createElement("div");
-    fp.setAttribute('class', 'featured-player');
+    fp.setAttribute('class', 'featured-outer');
+    fp.style.opacity = 0;
+    fp.style.display = "none";
     fp.id = "featured-player-" + data.id;
     fp.onclick = function() {shell.openExternal("https://www.opendota.com/players/" + data.id)};
     fp.innerHTML = buildFeaturedHtml(data);
@@ -107,17 +108,22 @@ function analyzeMatches(matchData) {
     }
   });
   let playerType = "";
+  let cardBg = "";
   if(counts.mid >= 10){
     playerType += "Mid ";
+    cardBg = "card-bg-red.jpg";
   }
   if(counts.offlane >= 10){
     playerType += "Offlane ";
+    cardBg = "card-bg-green.jpg";
   }
   if(counts.safelane >= 10){
     playerType += "Safelane ";
+    cardBg = "card-bg-blue.jpg";
   }
   if(counts.support >= 12){
     playerType += "Support";
+    cardBg = "card-bg-white.jpg";
   }
   if(counts.roaming >= 12){
     playerType += "Roamer";
@@ -127,11 +133,13 @@ function analyzeMatches(matchData) {
   }
   if(playerType == ""){
     playerType +="Flex";
+    cardBg = "card-bg-yellow.jpg";
   }
   playerStats = {};
   playerStats.ptype = playerType;
   playerStats.wins = counts.wins;
   playerStats.losses = 20 - counts.wins;
+  playerStats.cardBg = cardBg;
 
   return playerStats;
 }
@@ -167,7 +175,6 @@ function buildMatch(matchInfo) {
       match.players.push(data);
       if (match.players.length > 9) {
         var html = template(match);
-        localStorage.setItem("data", JSON.stringify(match.players));
         document.getElementById("game").innerHTML = html;
         clickToShowPlayer();
       }
@@ -176,7 +183,7 @@ function buildMatch(matchInfo) {
 }
 
 function getPlayer(playerID, slot) {
-  activePlayer = "49697106";
+  let activePlayer = localStorage.getItem("activePlayer");
   if(activePlayer != "" && playerID != undefined) {
     var apiRequest1 = fetch(`https://api.opendota.com/api/players/${activePlayer}/wl?included_account_id=${playerID}`).then(function(response){
         return response.json()
