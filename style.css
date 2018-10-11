@@ -28,7 +28,7 @@ body {
 
 .player-name {
   display: block;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: bold;
   vertical-align: top;
   margin: 5px;
@@ -44,7 +44,11 @@ body {
   text-overflow: ellipsis;
   box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
 }
-
+.player-matches {
+  font-size: 8px;
+  font-weight: normal;
+  line-height: 6px;
+}
 .player-rank {
   font-size: 12px;
   text-align: center;
@@ -125,7 +129,8 @@ h2 {
   border: 8px black solid;
   background-color: #6B6E70;
   background: url("https://ih0.redbubble.net/image.191255259.5112/flat,550x550,075,f.u1.jpg");
-  transition: opacity 0.5s, box-shadow .2s;
+  transition: opacity .5s ease-in-out, box-shadow .2s;
+  opacity: 0;
 }
 
 .featured-player:hover {
@@ -170,13 +175,16 @@ h2 {
 }
 
 .featured-player .card-bg {
-  background: url("https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/84/841949ae22447f1d91e84fa4f7e3926bee721b0b_full.jpg");
   background-size: cover;
   background-position: center center;
   filter: blur(5px);
   width: calc(100% + 14px);
   height: calc(100% + 14px);
   margin: -10px;
+}
+
+.card-bg-inner {
+  width: 100%;
 }
 
 .featured-player .info-row {

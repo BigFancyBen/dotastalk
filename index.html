@@ -15,7 +15,7 @@
           {{#each players}}
             {{#if side}}
             <div class="player" id="{{this.id}}">
-              <p class="player-name">{{this.name}}</p>
+              <div class="player-name">{{this.name}}<div class="player-matches">{{this.wl.win}}-{{this.wl.lose}}</div></div>
               <img src="{{this.avatar}}" alt="" class="player-avatar">
               <div class="rank">
                 <img src="{{rank_icon}}" alt="" class="player-rank-icon">
@@ -33,7 +33,7 @@
           {{#each players}}
             {{#unless side}}
               <div class="player" id="{{this.id}}">
-                <p class="player-name">{{this.name}}</p>
+                <div class="player-name">{{this.name}}<div class="player-matches">{{this.wl.win}}-{{this.wl.lose}}</div></div>
                 <div class="card-img"></div>
                 <img src="{{this.avatar}}" alt="" class="player-avatar">
                 <div class="rank">

@@ -29,7 +29,7 @@ ipc.on('selectPlayer', function(event){
   var players = document.getElementsByClassName("player");
   for (var i = 0; i < players.length; i++) {
     players[i].addEventListener('click', selectUser, false);
-    players[i].removeEventListener('click', showPlayer, false);
+    players[i].removeEventListener('click', showFeature, false);
     players[i].classList.add("fade-out");
   }
 })
@@ -39,12 +39,22 @@ function selectUser(){
   clickToShowPlayer();
 }
 
-function showPlayer(){
-  console.log("wat");
+function showFeature(){
+  playerID = this.id;
+  var players = document.getElementsByClassName("featured-player");
+  for (var i = 0; i < players.length; i++) {
+    players[i].setAttribute("style", "opacity: 0;");
+  }
+  curCard = "featured-player-" + playerID;
+  cur = document.getElementById(curCard);
+  if (cur != null) {
+    cur.setAttribute("style", "opacity: 1;");
+  }
 }
 
 function buildPlayerCard (data) {
   if (data.id != undefined) {
+    data.playerStats = analyzeMatches(data.matches);
     fp = document.createElement("div");
     fp.setAttribute('class', 'featured-player');
     fp.id = "featured-player-" + data.id;
@@ -52,13 +62,84 @@ function buildPlayerCard (data) {
     fp.innerHTML = buildFeaturedHtml(data);
     document.body.appendChild(fp);
   }
+}
 
+function analyzeMatches(matchData) {
+  //lane, role, win-loss, hero-id
+  let counts = {}
+  counts.support = 0;
+  counts.core = 0;
+  counts.mid = 0;
+  counts.safelane = 0;
+  counts.offlane = 0;
+  counts.wins = 0;
+
+  matchData.forEach(function (match){
+    if(match.player_slot >= 128 && match.radiant_win == false) {
+      counts.wins++;
+    }
+    if(match.player_slot < 128 && match.radiant_win == true) {
+      counts.wins++;
+    }
+    if(match.lane == 1) {
+      if(match.player_slot >= 128) {
+        counts.offlane ++;
+      }else {
+        counts.safelane++;
+      }
+    }
+    if(match.lane == 3) {
+      if(match.player_slot >= 128) {
+        counts.safelane ++;
+      }else {
+        counts.offlane++;
+      }
+    }
+
+    if(match.lane_role == 1) {
+      counts.core++;
+    }
+    if(match.lane_role == 2) {
+      counts.mid++;
+    }
+    if(match.lane_role == 3) {
+      counts.support++;
+    }
+  });
+  let playerType = "";
+  if(counts.mid >= 10){
+    playerType += "Mid ";
+  }
+  if(counts.offlane >= 10){
+    playerType += "Offlane ";
+  }
+  if(counts.safelane >= 10){
+    playerType += "Safelane ";
+  }
+  if(counts.support >= 12){
+    playerType += "Support";
+  }
+  if(counts.roaming >= 12){
+    playerType += "Roamer";
+  }
+  if(counts.core >= 12){
+    playerType += "Core";
+  }
+  if(playerType == ""){
+    playerType +="Flex";
+  }
+  playerStats = {};
+  playerStats.ptype = playerType;
+  playerStats.wins = counts.wins;
+  playerStats.losses = 20 - counts.wins;
+
+  return playerStats;
 }
 
 function clickToShowPlayer() {
   var players = document.getElementsByClassName("player");
   for (var i = 0; i < players.length; i++) {
-    players[i].addEventListener('click', showPlayer(players[i].id), false);
+    players[i].addEventListener("click", showFeature);
     players[i].removeEventListener('click', selectUser, false);
     players[i].classList.remove("fade-out");
   }
