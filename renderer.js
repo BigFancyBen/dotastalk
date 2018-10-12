@@ -122,7 +122,8 @@ function analyzeMatches(matchData) {
     cardBg = "card-bg-blue.jpg";
   }
   if(counts.support >= 12){
-    playerType += "Support";
+    playerType += "Support ";
+    // + Math.floor((counts.support / 20)*100) + "%"
     cardBg = "card-bg-white.jpg";
   }
   if(counts.roaming >= 12){
