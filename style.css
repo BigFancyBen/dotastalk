@@ -197,12 +197,11 @@ h2 {
   margin-left: 3px;
 }
 .featured-player .info-row img {
-  float: right;
-  margin-right: 8px;
-  margin-top: 1px;
+  position: absolute;
+  right: 10px;
+  top: 2px;
   height: 26px;
   border-radius: 20px;
-  padding: 1px;
   filter: drop-shadow(1px 1px 0 #6B6E70) drop-shadow(-1px -1px 0 #6B6E70) drop-shadow(1px -1px 0 #6B6E70) drop-shadow(-1px 1px 0 #6B6E70);
 }
 

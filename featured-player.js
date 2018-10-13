@@ -1,6 +1,28 @@
 module.exports = {buildFeaturedHtml};
 
 function buildFeaturedHtml(data) {
+  let heroSection = `<div class="recent-hero">
+     <img src="${data.playerStats.heroes[0].url}" alt="" class="hero">
+     <div class="hero-win-loss">
+       <div class="hero-wl-inner">${data.playerStats.heroes[0].wins}-${data.playerStats.heroes[0].losses}</div>
+     </div>
+    </div>`;
+  if (data.playerStats.heroes.length >= 2) {
+    heroSection+=`<div class="recent-hero">
+       <img src="${data.playerStats.heroes[1].url}" alt="" class="hero">
+       <div class="hero-win-loss">
+         <div class="hero-wl-inner">${data.playerStats.heroes[1].wins}-${data.playerStats.heroes[1].losses}</div>
+       </div>
+     </div>`
+  }
+  if (data.playerStats.heroes.length >= 3) {
+    heroSection+= `<div class="recent-hero">
+      <img src="${data.playerStats.heroes[2].url}" alt="" class="hero">
+      <div class="hero-win-loss">
+        <div class="hero-wl-inner">${data.playerStats.heroes[2].wins}-${data.playerStats.heroes[2].losses}</div>
+      </div>
+    </div>`
+  }
   var html = `<div class="featured-player" style="background: url('./assets/images/${data.playerStats.cardBg}')">
    <div class="name-row">
      <h3 class="name">${data.name}</h3>
@@ -16,6 +38,7 @@ function buildFeaturedHtml(data) {
    </div>
    <div class="body-row">
      <div class="description">
+      ${heroSection}
      </div>
    </div>
    <div class="wl-row">
@@ -28,22 +51,3 @@ function buildFeaturedHtml(data) {
 
   return html;
 }
-
-// <div class="recent-hero">
-//   <img src="https://d1u5p3l4wpay3k.cloudfront.net/dota2_gamepedia/8/8d/Io_icon.png" alt="" class="hero">
-//   <div class="hero-win-loss">
-//     <div class="hero-wl-inner">7-3</div>
-//   </div>
-// </div>
-// <div class="recent-hero">
-//   <img src="https://d1u5p3l4wpay3k.cloudfront.net/dota2_gamepedia/7/72/Oracle_icon.png" alt="" class="hero">
-//   <div class="hero-win-loss">
-//     <div class="hero-wl-inner">5-2</div>
-//   </div>
-// </div>
-// <div class="recent-hero">
-//   <img src="https://d1u5p3l4wpay3k.cloudfront.net/dota2_gamepedia/4/4e/Pangolier_icon.png" alt="" class="hero">
-//   <div class="hero-win-loss">
-//     <div class="hero-wl-inner">4-0</div>
-//   </div>
-// </div>
