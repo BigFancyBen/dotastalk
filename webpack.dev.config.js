@@ -2,6 +2,7 @@ require('dotenv').config();
 const webpack = require('webpack');
 const path = require('path');
 const { spawn } = require('child_process');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // Config directories
 const SRC_DIR = path.resolve(__dirname, 'src');
@@ -38,6 +39,7 @@ module.exports = {
   },
   target: 'electron-renderer',
   plugins: [
+    new HtmlWebpackPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
     })
