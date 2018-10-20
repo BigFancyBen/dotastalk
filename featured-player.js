@@ -4,8 +4,9 @@ module.exports = {buildFeaturedHtml};
 function buildFeaturedHtml(data) {
   let laneGraph = fpGraph(data.playerStats.counts, data.id);
   let graphHTML = "";
+  let graphRoles = `<div class="graph-roles">Supp: ${data.playerStats.counts.support}<br>Core: ${data.playerStats.counts.core}<br>Mid: ${data.playerStats.counts.mid}</div>`;
   if (laneGraph){
-    graphHTML = `<img src="${laneGraph}" class="lane-graph"></img>`;
+    graphHTML = `<div class="graphs">${graphRoles}<img class="graph-minimap" src="./assets/images/minimap_simple.png"></img><img src="${laneGraph}" class="lane-graph"></img></div>`;
   }
   console.log(graphHTML);
   let heroSection = `<div class="recent-hero">

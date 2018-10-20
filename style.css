@@ -261,11 +261,49 @@ h2 {
   padding-bottom: 3px;
 }
 
-.featured-player .lane-graph {
+.featured-player .graphs {
   height: 80px;
   width: 80px;
   position: absolute;
+  right: 10px;
+  bottom: 25px;
+  background-color: #6B6E70;
   border-radius: 8px;
+  filter: drop-shadow(2px 2px 0px rgba(0,0,0,.2));
+  padding: 5px;
+}
+
+.featured-player .lane-graph {
+  border-radius: 8px;
+  z-index: 2;
+  opacity: .35;
+  height: 75px;
+  width: 75px;
+  position: absolute;
+  margin: 2.5px 0 0 2.5px;
+}
+
+.featured-player .graph-minimap {
+  height: 75px;
+  width: 75px;
+  position: absolute;
+  z-index: 1;
+  margin: 2.5px 0 0 2.5px;
+  border-radius: 8px;
+  filter: drop-shadow(2px 2px 0px rgba(0,0,0,.2));
+}
+
+.graph-roles {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: .6em;
+  background-color: #474B4F;
+  border-radius: 8px;
+  padding: 5px;
+  width: 36px;
+  text-align: right;
+  filter: drop-shadow(2px 2px 0px rgba(0,0,0,.2));
 }
 
 .featured-player .recent-hero {
