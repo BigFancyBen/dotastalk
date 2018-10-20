@@ -75,10 +75,12 @@ function analyzeMatches(matchData) {
   counts.safelane = 0;
   counts.offlane = 0;
   counts.wins = 0;
+  counts.total = 0;
   let heroPicks = [];
 
   matchData.forEach(function (match){
     wonGame = false;
+    counts.total++;
     if(match.player_slot >= 128 && match.radiant_win == false) {
       counts.wins++;
       wonGame = true;
@@ -119,7 +121,7 @@ function analyzeMatches(matchData) {
       if (wonGame) {
         pHero.wins++
       } else {
-        curHero.losses++;
+        pHero.losses++;
       }
     } else {
       curHero.count = 1;
@@ -136,41 +138,39 @@ function analyzeMatches(matchData) {
   let sortedHeroes = heroPicks.sort((a, b) => b.count - a.count);
   let playerType = "";
   let cardBg = "";
-  if(counts.mid >= 10){
+  counts.laneTotal = counts.mid+counts.safelane+counts.offlane;
+  counts.roleTotal = counts.core+counts.mid+counts.support;
+  if(counts.mid/counts.roleTotal >= .55){
     playerType += "Mid ";
     cardBg = "card-bg-red.jpg";
   }
-  if(counts.offlane >= 10){
+  if(counts.offlane/counts.laneTotal >= .55){
     playerType += "Offlane ";
     cardBg = "card-bg-green.jpg";
   }
-  if(counts.safelane >= 10){
+  if(counts.safelane/counts.laneTotal >= .55){
     playerType += "Safelane ";
     cardBg = "card-bg-blue.jpg";
   }
-  if(counts.support >= 12){
+  if(counts.support/counts.roleTotal >= .55){
     playerType += "Support ";
-    // + Math.floor((counts.support / 20)*100) + "%"
     cardBg = "card-bg-white.jpg";
   }
-  if(counts.roaming >= 12){
-    playerType += "Roamer";
-  }
-  if(counts.core >= 12){
+  if(counts.core/counts.roleTotal >= .55){
     playerType += "Core";
   }
   if(playerType == ""){
     playerType +="Flex";
     cardBg = "card-bg-yellow.jpg";
   }
-  if(sortedHeroes[0].count > 10){
+  if(sortedHeroes[0].count/counts.total > .5){
     playerType = sortedHeroes[0].name + " Main";
   }
 
   playerStats = {};
   playerStats.ptype = playerType;
   playerStats.wins = counts.wins;
-  playerStats.losses = 20 - counts.wins;
+  playerStats.losses = counts.total - counts.wins;
   playerStats.counts = counts;
   playerStats.cardBg = cardBg;
   playerStats.heroes = sortedHeroes;
