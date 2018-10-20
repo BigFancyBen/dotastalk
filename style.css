@@ -261,6 +261,13 @@ h2 {
   padding-bottom: 3px;
 }
 
+.featured-player .lane-graph {
+  height: 80px;
+  width: 80px;
+  position: absolute;
+  border-radius: 8px;
+}
+
 .featured-player .recent-hero {
   float: left;
 }

@@ -1,6 +1,13 @@
+const { fpGraph } = require('./fp-graphs.js');
 module.exports = {buildFeaturedHtml};
 
 function buildFeaturedHtml(data) {
+  let laneGraph = fpGraph(data.playerStats.counts, data.id);
+  let graphHTML = "";
+  if (laneGraph){
+    graphHTML = `<img src="${laneGraph}" class="lane-graph"></img>`;
+  }
+  console.log(graphHTML);
   let heroSection = `<div class="recent-hero">
      <img src="${data.playerStats.heroes[0].url}" alt="" class="hero">
      <div class="hero-win-loss">
@@ -39,6 +46,7 @@ function buildFeaturedHtml(data) {
    <div class="body-row">
      <div class="description">
       ${heroSection}
+      ${graphHTML}
      </div>
    </div>
    <div class="wl-row">
