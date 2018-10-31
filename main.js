@@ -15,9 +15,7 @@ let logPath;
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
     show: false,
-    resizable: false,
-    width: 850,
-    height: 850,
+    resizable: true,
     icon: path.join(__dirname, 'assets/images/icon_64x64.png')
   });
   mainWindow.loadURL(path.join('file://', __dirname, 'index.html'));
@@ -45,6 +43,8 @@ app.on('ready', () => {
     });
     if(typeof mainWindow.serverLog != "undefined"){
       event.sender.send('updatedMatches', parseLog(mainWindow.serverLog.path));
+    } else {
+      event.sender.send('updatedMatches', parseLog('./sample_server_log.txt'));
     }
   })
 
