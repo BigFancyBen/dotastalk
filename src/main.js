@@ -1,9 +1,9 @@
 const { app, BrowserWindow } = require('electron');
 const path = require ('path');
 const electron = require('electron');
-const { setMainMenu } = require('./main-menu');
-const { parseLog } = require('./logwatch');
-const { setStorage } = require('./setStorage');
+const { setMainMenu } = require('./main/main-menu');
+const { parseLog } = require('./main/logwatch');
+const { setStorage } = require('./main/setStorage');
 require('electron-debug')({showDevTools: true});
 const storage = require('electron-json-storage');
 const ipc = electron.ipcMain;

@@ -6,7 +6,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "electron main.js",
+    "start": "electron src/main.js",
     "package": "build"
   },
   "keywords": [],

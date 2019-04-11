@@ -7,7 +7,7 @@ function getHeroByID(heroID) {
   if (curHero != undefined) {
     heroData.id = curHero.id;
     heroData.name = curHero.localized_name;
-    heroData.url = "http://media.steampowered.com/apps/dota2/images/heroes/"+ curHero.name.substr(14) + "_full.png";
+    heroData.url = "https://api.opendota.com/apps/dota2/images/heroes/"+ curHero.name.substr(14) + "_full.png";
   }
   return heroData;
   //return hero name and hero picture url http://media.steampowered.com/apps/dota2/images/heroes/naga_siren_full.png
