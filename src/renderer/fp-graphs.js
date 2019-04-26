@@ -2,9 +2,7 @@ module.exports = {fpGraph};
 
 function fpGraph(data, playerID) {
   total = data.offlane + data.mid + data.safelane;
-  console.log(data);
   if(total != 0){
-    console.log(playerID);
     let size = 80;
     let canvas = document.createElement('canvas');
     canvas.height = size;
@@ -26,7 +24,6 @@ function fpGraph(data, playerID) {
     context.fill();
 
     let tri1 = Math.floor((data.offlane / total)*size);
-    console.log(tri1);
     // the triangle
     context.beginPath();
     context.moveTo(0, 0);
@@ -44,7 +41,6 @@ function fpGraph(data, playerID) {
     context.fill();
 
     let tri3 = size - Math.floor((data.safelane / total)*size);
-    console.log(tri3);
     // the triangle
     context.beginPath();
     context.moveTo(0, size);

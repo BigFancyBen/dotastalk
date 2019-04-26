@@ -7,6 +7,9 @@ document.getElementById("reset").onclick = function() {resetGame()};
 const shell = require('electron').shell;
 const { buildFeaturedHtml } = require('./featured-player.js');
 const { getHeroByID } = require('./heroes.js');
+const { analyzeMatches } = require('./analyze-matches.js');
+
+
 
 const RANKS = ["Herald", "Guardian", "Crusader", "Archon", "Legend", "Ancient", "Divine"];
 const NO_AVATAR_IMG = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg";
@@ -66,118 +69,6 @@ function buildPlayerCard (data) {
   }
 }
 
-function analyzeMatches(matchData) {
-  //lane, role, win-loss, hero-id
-  let counts = {}
-  counts.support = 0;
-  counts.core = 0;
-  counts.mid = 0;
-  counts.safelane = 0;
-  counts.offlane = 0;
-  counts.wins = 0;
-  counts.total = 0;
-  let heroPicks = [];
-
-  matchData.forEach(function (match){
-    wonGame = false;
-    counts.total++;
-    if(match.player_slot >= 128 && match.radiant_win == false) {
-      counts.wins++;
-      wonGame = true;
-    }
-    if(match.player_slot < 128 && match.radiant_win == true) {
-      counts.wins++;
-      wonGame = true;
-    }
-    if(match.lane == 1) {
-      if(match.player_slot >= 128) {
-        counts.offlane ++;
-      }else {
-        counts.safelane++;
-      }
-    }
-    if(match.lane == 3) {
-      if(match.player_slot >= 128) {
-        counts.safelane ++;
-      }else {
-        counts.offlane++;
-      }
-    }
-
-    if(match.lane_role == 1) {
-      counts.core++;
-    }
-    if(match.lane_role == 2) {
-      counts.mid++;
-    }
-    if(match.lane_role == 3) {
-      counts.support++;
-    }
-
-    let curHero = getHeroByID(match.hero_id);
-    if (heroPicks.some(x => x.id == match.hero_id)){
-      pHero = heroPicks.find(x => x.id == match.hero_id);
-      pHero.count++;
-      if (wonGame) {
-        pHero.wins++
-      } else {
-        pHero.losses++;
-      }
-    } else {
-      curHero.count = 1;
-      if (wonGame) {
-        curHero.wins = 1;
-        curHero.losses = 0;
-      } else {
-        curHero.wins = 0;
-        curHero.losses = 1;
-      }
-      heroPicks.push(curHero);
-    }
-  });
-  let sortedHeroes = heroPicks.sort((a, b) => b.count - a.count);
-  let playerType = "";
-  let cardBg = "";
-  counts.laneTotal = counts.mid+counts.safelane+counts.offlane;
-  counts.roleTotal = counts.core+counts.mid+counts.support;
-  if(counts.mid/counts.roleTotal >= .55){
-    playerType += "Mid ";
-    cardBg = "card-bg-red.jpg";
-  }
-  if(counts.offlane/counts.laneTotal >= .55){
-    playerType += "Offlane ";
-    cardBg = "card-bg-green.jpg";
-  }
-  if(counts.safelane/counts.laneTotal >= .55){
-    playerType += "Safelane ";
-    cardBg = "card-bg-blue.jpg";
-  }
-  if(counts.support/counts.roleTotal >= .55){
-    playerType += "Support ";
-    cardBg = "card-bg-white.jpg";
-  }
-  if(counts.core/counts.roleTotal >= .55){
-    playerType += "Core";
-  }
-  if(playerType == ""){
-    playerType +="Flex";
-    cardBg = "card-bg-yellow.jpg";
-  }
-  if(sortedHeroes[0].count/counts.total > .5){
-    playerType = sortedHeroes[0].name + " Main";
-  }
-
-  playerStats = {};
-  playerStats.ptype = playerType;
-  playerStats.wins = counts.wins;
-  playerStats.losses = counts.total - counts.wins;
-  playerStats.counts = counts;
-  playerStats.cardBg = cardBg;
-  playerStats.heroes = sortedHeroes;
-
-  return playerStats;
-}
-
 function clickToShowPlayer() {
   var players = document.getElementsByClassName("player");
   for (var i = 0; i < players.length; i++) {
@@ -201,11 +92,13 @@ function buildMatch(matchInfo) {
   lobbyRegex = /\((Lobby)(.*?)\)/;
   playerIDs = matchInfo.match(lobbyRegex)[2].split(" ").splice(3);
   match.players = [];
+  let curIDRegex = /^(.*?U:1:)/;
+  var side = playerIDs.find(a =>a.includes(localStorage.getItem("activePlayer"))).substr(0,1)>=5 ? false : true;
   for (var value of playerIDs) {
-    curID= value.substr(7);
+    curID= value.replace(curIDRegex, "");
     curID = curID.substr(0, curID.length - 1);
     curSlot = value.charAt(0);
-    getPlayer(curID, curSlot).then((data) => {
+    getPlayer(curID, curSlot, side).then((data) => {
       match.players.push(data);
       if (match.players.length > 9) {
         var html = template(match);
@@ -216,12 +109,18 @@ function buildMatch(matchInfo) {
   }
 }
 
-function getPlayer(playerID, slot) {
+function getPlayer(playerID, slot, side) {
   let activePlayer = localStorage.getItem("activePlayer");
   if(activePlayer != "" && playerID != undefined) {
-    var apiRequest1 = fetch(`https://api.opendota.com/api/players/${activePlayer}/wl?included_account_id=${playerID}`).then(function(response){
-        return response.json()
-    });
+    if((side && slot >= 5) || (!side && slot < 5)){
+      var apiRequest1 = fetch(`https://api.opendota.com/api/players/${activePlayer}/wl?against_account_id=${playerID}`).then(function(response){
+          return response.json()
+      });
+    } else if ((side && slot < 5) || (!side && slot >=5)) {
+      var apiRequest1 = fetch(`https://api.opendota.com/api/players/${activePlayer}/wl?with_account_id=${playerID}`).then(function(response){
+          return response.json()
+      });
+    }
     var apiRequest2 = fetch(`https://api.opendota.com/api/players/${playerID}/recentMatches?significant=0`).then(function(response){
         return response.json()
     });
@@ -265,7 +164,7 @@ function buildPlayer(playerInfo, slotNum){
         playerData.rank_stars = "./assets/images/rank_icons/" + rankStuff[2];
       }
     } else {
-      if (playerObj.mmr_estimate.estimate != undefined ){
+      if (playerObj.mmr_estimate != undefined && playerObj.mmr_estimate.estimate != undefined  ){
         playerData.rank = "~" + playerObj.mmr_estimate.estimate +  " MMR";
       }
       playerData.rank_icon = "./assets/images/rank_icons/rank_icon_0.png";

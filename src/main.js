@@ -15,8 +15,10 @@ let logPath;
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
     show: false,
-    resizable: false,
+    resizable: true,
     width: 850,
+    nodeIntegration: true,
+    unsafeEval: true,
     height: 850,
     icon: path.join(__dirname, 'assets/images/icon_64x64.png')
   });
