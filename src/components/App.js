@@ -2,7 +2,12 @@ import React from 'react';
 import Home from './Home';
 import Help from './Help';
 import { MemoryRouter, Switch, Route } from 'react-router';
-import '../assets/css/global.css'
+
+const ipc = require('electron').ipcRenderer;
+
+ipc.on('updateMatches',function(event, game){
+    console.log("game: "+game);
+})
 
 const App = () => (
   <MemoryRouter>
