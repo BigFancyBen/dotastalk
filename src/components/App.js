@@ -11,7 +11,7 @@ class App extends React.Component {
       loading: false,
     };
   }
-
+  
   componentDidMount() {
     console.log('App Started');
     // call api
