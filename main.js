@@ -4,6 +4,7 @@
 const {app, BrowserWindow} = require('electron');
 const path = require('path')
 const url = require('url')
+const { setMainMenu } = require('./src/electron/main-menu');
 
 const TITLE = 'React Electron React-Router Boilerplate';
 
@@ -40,7 +41,7 @@ function createWindow() {
     });
   }
   mainWindow.loadURL( indexPath );
-
+  setMainMenu(mainWindow);
   // Don't show until we are ready and loaded
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
