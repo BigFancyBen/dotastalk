@@ -1,11 +1,20 @@
 
 
-exports.parseData = (playerIds) => {
+exports.grabAllPlayerInfo = function(playerIds) {
   console.log('Player Data', playerIds);
+  //console.log('Active User', activeUserId)
+
+  //Get info for players, could be more than 10
+  console.log('Player Ids Before', playerIds);
+  var apiResponses = playerIds.map(playerID => fetch(`https://api.opendota.com/api/players/${playerID}`).then(function(response){
+      return response.json()
+  }));
+  console.log('Api Responses', apiResponses);
+
+  return Promise.all(apiResponses).then(values => {
+    return values;
+  });
   
-  
-  // Return match data structure
-  return(null);
 }
 
 
