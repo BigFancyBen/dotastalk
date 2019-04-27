@@ -45,7 +45,6 @@ function createWindow() {
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
     mainWindow.setTitle(TITLE);
-    mainWindow.setFullScreen(true);
     mainWindow.setMinimizable(true);
 
     // Open the DevTools automatically if developing
