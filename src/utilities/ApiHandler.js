@@ -11,7 +11,7 @@ exports.grabAllPlayerInfo = function(playerIds) {
   }));
   console.log('Api Responses', apiResponses);
 
-  return Promise.all(apiResponses).then(values => {
+  Promise.all(apiResponses).then(values => {
     return values;
   });
   
