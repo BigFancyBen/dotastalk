@@ -24,6 +24,7 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.4",
+    "babel-preset-airbnb": "^3.2.1",
     "css-loader": "^1.0.0",
     "dotenv-webpack": "^1.5.7",
     "electron": "^3.0.4",
