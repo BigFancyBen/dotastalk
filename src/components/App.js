@@ -1,6 +1,7 @@
 import React, { ReactText } from 'react';
 import Home from './Home';
 import Help from './Help';
+import ApiHandler from '../utilities/ApiHandler';
 import { MemoryRouter, Switch, Route } from 'react-router';
 import '../assets/css/global.css'
 
@@ -14,7 +15,8 @@ class App extends React.Component {
   
   componentDidMount() {
     console.log('App Started');
-    // call api
+    var serverLogData = [];
+    ApiHandler.parseData(serverLogData);
     this.setState({ loading: true });
   }
 
