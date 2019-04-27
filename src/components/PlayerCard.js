@@ -3,7 +3,7 @@ import { ListGroupItem } from 'reactstrap';
 import { shell } from 'electron';
 import '../assets/css/PlayerCard.css';
 
-export default class BrowserListItem extends Component {
+export default class PlayerCard extends Component {
   openBrowser = e => {
     e.preventDefault();
     
