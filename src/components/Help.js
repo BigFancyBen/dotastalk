@@ -1,11 +1,12 @@
 import React from 'react';
-import { ListGroup, Button, ListGroupItem } from 'reactstrap';
+import { ListGroup, ListGroupItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import BrowserListItem from './BrowserListItem';
+import '../assets/css/Home.css';
 
 class Help extends React.Component {
   componentDidMount() {
-    console.log('Mounted!');
+    console.log('Mounted, faggot');
   }
 
   render() {

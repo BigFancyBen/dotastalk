@@ -16,7 +16,7 @@ function showOpenDialog(browserWindow) {
       storage.getAll(function(error, data) {
         if (error) throw error;
       
-        console.log(data);
+        console.log("data from GetAll: ",data);
       });
       browserWindow.webContents.send( 'updatedMatches', parseLog(filepaths[0]));
 
