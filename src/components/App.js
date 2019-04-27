@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from './Home';
 import Help from './Help';
+import ApiHandler from '../utilities/ApiHandler';
 import { MemoryRouter, Switch, Route } from 'react-router';
 import storage from 'electron-json-storage';
 import '../assets/css/global.css';
@@ -18,6 +19,7 @@ class App extends React.Component {
 
   componentDidMount() {
     console.log('App Started');
+    
     const that = this;
     storage.get('serverLog', function(error, log) {
       if (error) throw error;
@@ -28,6 +30,16 @@ class App extends React.Component {
           that.setState({ loading: true });
           const players = that.getPlayers(parsedData[parsedData.length - 1]);
           // DERS MAKE YOUR API CALL HERE.
+          const res = ApiHandler.grabAllPlayerInfo(players);
+            console.log('Response', res);
+            if(players.length != 10){
+              //Render page where they select which teams each person is on. Return a list of the ID's of players on Radiant and Dire
+
+            }else{
+              //activePlayersData = res;
+            }
+            //If activeUserID is null, show a modal or something to force them to choose their user
+         
         } catch (error) {
           console.log('NO FILE FOUND', error);
         }
