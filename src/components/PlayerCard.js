@@ -13,34 +13,34 @@ export default class BrowserListItem extends Component {
 
   render() {
       const {cardData} = this.props;
-      
+      console.log(cardData);
+      const Heroes = cardData.playerStats.heroes.splice(0, 3).map((hero, i) => {
+      return (
+      <div className="recent-hero">
+        <img src={hero.url} alt="" className="hero"/>
+        <div className="hero-win-loss">
+        <div className="hero-wl-inner">{hero.wins}-{hero.losses}</div>
+        </div>
+      </div>)});
+      const backgroundUrl = `url('./assets/images/${cardData.playerStats.cardBg}')`
+
     return (
-        <div className="featured-player">
+        <div className="featured-player" backgroundImage={backgroundUrl}>
          <div className="name-row">
            <h3 className="name">{cardData.name}</h3>
          </div>
          <div className ="card-img">
-             <div className="card-bg"><img src="{cardData.avatar}" alt="" className="card-bg-inner"/></div>
-             <img src="{cardData.avatar}" alt="" className="card-avatar"/>
+             <div className="card-bg"><img src={cardData.avatar} alt="" className="card-bg-inner"/></div>
+             <img src={cardData.avatar} alt="" className="card-avatar"/>
          </div>
-         </div>
-         /* <div className="info-row">
+         <div className="info-row">
            <h4 className="role">{cardData.playerStats.ptype}</h4>
            <h4 className="rank"></h4>
-           <img src="{cardData.rank_icon}" alt="">
+           <img src={cardData.rank_icon} alt=""/>
          </div>
          <div className="body-row">
            <div className="description">
-           for (let i = 0; i < 3; i++){
-            if( cardData.playerStats.heroes[i] ) {
-              <div className="recent-hero">
-                <img src="{cardData.playerStats.heroes[i].url}" alt="" className="hero">
-                <div className="hero-win-loss">
-                <div className="hero-wl-inner">{cardData.playerStats.heroes[i].wins}-{cardData.playerStats.heroes[i].losses}</div>
-                </div>
-              </div>
-            }
-          }
+              {Heroes}
            </div>
          </div>
          <div className="wl-row">
@@ -49,7 +49,7 @@ export default class BrowserListItem extends Component {
              <div className="losses">{cardData.playerStats.losses}</div>
            </div>
          </div>
-        </div> */
-    );
+        </div>
+    )
   }
 }
