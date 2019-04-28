@@ -1,5 +1,5 @@
 const { dialog, app } = require('electron');
-const storage = require('electron-json-storage');
+const storage = require('electron-json-storage-sync');
 const { parseLog } = require('./logwatch');
 var watch = require('node-watch');
 module.exports = {showOpenDialog};
