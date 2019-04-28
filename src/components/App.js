@@ -1,8 +1,11 @@
-import React, { ReactText } from 'react';
+import React from 'react';
 import Home from './Home';
 import Help from './Help';
 import { MemoryRouter, Switch, Route } from 'react-router';
-import '../assets/css/global.css'
+import { loadFromServerLog } from '../utilities/helpers';
+import '../assets/css/global.css';
+const ipc = require('electron').ipcRenderer;
+
 
 class App extends React.Component {
   constructor() {
@@ -11,11 +14,13 @@ class App extends React.Component {
       loading: false,
     };
   }
-  
+
   componentDidMount() {
     console.log('App Started');
-    // call api
-    this.setState({ loading: true });
+    loadFromServerLog();
+    ipc.on('updatedMatches', function(event) {
+      loadFromServerLog()
+    });
   }
 
   render() {
@@ -28,6 +33,6 @@ class App extends React.Component {
       </MemoryRouter>
     );
   }
-}
+};
 
 export default App;

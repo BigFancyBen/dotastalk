@@ -4,6 +4,7 @@ import PlayerCard from './PlayerCard'
 import { Link } from 'react-router-dom';
 import '../assets/css/Home.css';
 
+
 class Home extends React.Component {
   componentDidMount() {
     console.log('Mounted!');
