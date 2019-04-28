@@ -1,6 +1,7 @@
 import React from 'react';
 import Storage from 'electron-json-storage-sync';
 import { Redirect } from 'react-router';
+import PlayerCard from './PlayerCard';
 import { loadFromServerLog } from '../utilities/helpers';
 import '../assets/css/Home.css';
 const ipc = require('electron').ipcRenderer;
