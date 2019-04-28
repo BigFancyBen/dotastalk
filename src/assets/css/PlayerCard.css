@@ -25,7 +25,7 @@
   height: 30px;
   border: 2px solid #6B6E70;
   background: #474B4F;
-  background-image: url("../images/black-paper.png");
+  /* background-image: url("../../public/images/black-paper.png"); */
   border-radius: 8px 8px 0 0;
   box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
 }
@@ -75,7 +75,7 @@
   height: 30px;
   border: 2px solid #6B6E70;
   background: #474B4F;
-  background-image: url("../images/black-paper.png");
+  /* background-image: url("../../public/images/black-paper.png"); */
   margin-top: -2px;
   position: relative;
 }
@@ -106,7 +106,7 @@
   border: 2px solid #6B6E70;
   border-radius: 8px;
   background: #474B4F;
-  background-image: url("../images/black-paper.png");
+  /* background-image: url("../../public/images/black-paper.png"); */
   position: absolute;
   box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
   bottom: 4px;
@@ -135,7 +135,7 @@
   margin-top: -2px;
   position: relative;
   background-color: #474B4F;
-  background-image: url("../images/black-paper.png");
+  /* background-image: url("../../public/images/black-paper.png"); */
   box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
   border-radius: 0 0 8px 8px;
   width: 100%;
