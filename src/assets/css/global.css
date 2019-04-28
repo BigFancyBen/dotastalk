@@ -1,6 +1,8 @@
-@import '../../../node_modules/typeface-ibm-plex-sans/index.css';
-@import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-
-* {
-    font-family: 'IBM Plex Sans', sans-serif !important;
-}
+body {
+    color: #dddddd;
+    font-family: "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
+    overflow: hidden;
+    margin-bottom: 50px;
+    background-color: #222629;
+    text-rendering: optimizeLegibility;
+  }
