@@ -6,7 +6,7 @@ const path = require('path')
 const url = require('url')
 const { setMainMenu } = require('./src/electron/main-menu');
 
-const TITLE = 'React Electron React-Router Boilerplate';
+const TITLE = 'DotaStalk';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -23,6 +23,8 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     title: TITLE, width: 1024, height: 768, show: false
   });
+  mainWindow.setTitle(require('./package.json').name);
+
 
   // and load the index.html of the app.
   let indexPath;

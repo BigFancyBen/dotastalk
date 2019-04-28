@@ -1,10 +1,11 @@
 import React from 'react';
 import Home from './Home';
-import Help from './Help';
+import Teamview from './Teamview';
+import TeamSelctor from './TeamSelector';
+import Overview from './Overview';
+import Onboarding from './Onboarding';
 import { MemoryRouter, Switch, Route } from 'react-router';
-import { loadFromServerLog } from '../utilities/helpers';
 import '../assets/css/global.css';
-const ipc = require('electron').ipcRenderer;
 
 
 class App extends React.Component {
@@ -17,17 +18,16 @@ class App extends React.Component {
 
   componentDidMount() {
     console.log('App Started');
-    loadFromServerLog();
-    ipc.on('updatedMatches', function(event) {
-      loadFromServerLog()
-    });
   }
 
   render() {
     return (
       <MemoryRouter>
         <Switch>
-          <Route path="/help" component={Help} />
+          <Route path="/onboarding" component={Onboarding} />
+          <Route path="/overview" component={Overview} />
+          <Route path="/teamview" component={Teamview} />
+          <Route path="/teamselect" component={TeamSelctor} />
           <Route path="/" component={Home} />
         </Switch>
       </MemoryRouter>

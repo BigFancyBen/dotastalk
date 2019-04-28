@@ -1,16 +1,38 @@
 import React from 'react';
-import { Jumbotron } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import Storage from 'electron-json-storage-sync';
+import { Redirect } from 'react-router';
+import { loadFromServerLog } from '../utilities/helpers';
 import '../assets/css/Home.css';
+const ipc = require('electron').ipcRenderer;
 
-const Home = () => (
-  <div>
-    <Jumbotron>
-      <h1 className="display-3">7h3 H4mm3r 0f 7h0r Br4nch</h1>
-      <p className="lead">This is an example for an Electron React Router Boilerplate.</p>
-      <Link to="/help">More Info</Link>
-    </Jumbotron>
-  </div>
-);
+
+class Home  extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      loading: false,
+      redirect: false,
+    };
+  }  
+  componentDidMount() {
+    // Storage.clear();
+    this.setState({ redirect: false })
+    const result = loadFromServerLog();
+    ipc.on('updatedMatches', function(event) {
+      loadFromServerLog();
+    });
+    if (!result.data) {
+      this.setState({ redirect: true })
+    }
+  }
+
+  render() {
+    const { redirect } = this.state;
+    if (redirect) {
+      return <Redirect push to="/onboarding" />;
+    }
+    return null;
+  }
+};
 
 export default Home;
