@@ -1,11 +1,9 @@
 import React from 'react';
 import Home from './Home';
 import Help from './Help';
-import ApiHandler from '../utilities/ApiHandler';
 import { MemoryRouter, Switch, Route } from 'react-router';
 import { loadFromServerLog } from '../utilities/helpers';
 import '../assets/css/global.css';
-const { parseLog } = require('../electron/logwatch');
 const ipc = require('electron').ipcRenderer;
 
 

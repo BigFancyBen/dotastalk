@@ -17,6 +17,14 @@ exports.grabAllPlayerInfo = function(playerIds) {
   
 }
 
+exports.winLoss = function(playerIds) {
+
+}
+
+exports.matches = function(playerIds) {
+  
+}
+
 
 
 // Code from Ben's V1 app

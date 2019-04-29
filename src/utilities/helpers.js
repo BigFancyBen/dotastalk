@@ -32,14 +32,18 @@ export function getPlayers(matchInfo) {
         try {
           const parsedData = parseLog(path);
           const players = getPlayers(parsedData[parsedData.length - 1]);
+          const activePlayers = [];
           if (dev) {
-            const res = ApiHandler.grabAllPlayerInfo(players);
-            console.log('Response', res);
+            const playerResult = ApiHandler.grabAllPlayerInfo(players);
+            console.log('Response', playerResult);
             if(players.length != 10){
               //Render page where they select which teams each person is on. Return a list of the ID's of players on Radiant and Dire
             }else{
-              //activePlayersData = res;
+              activePlayers = players; 
             }
+
+            const winLoss = ApiHandler.winLoss(activePlayers);
+            const matches = ApiHandler.matches(activePlayers);
           }
         } catch (error) {
           console.log('NO FILE FOUND', error);
