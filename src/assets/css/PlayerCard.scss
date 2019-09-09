@@ -1,4 +1,5 @@
-$cardBorder: 2px solid #6B6E70;
+//$cardBorder: 2px solid #6B6E70;
+$cardBorder: 2px solid black;
 
 .player-card{
   cursor: pointer;
@@ -70,14 +71,18 @@ $cardBorder: 2px solid #6B6E70;
     justify-content: left;
   }
 
+  .hero-wrapper1 {
+    display: none;
+  }
+
   .hero-wl-inner{
-    position: absolute;
-    text-align: center;
-    width: 100%;
+    padding: 5px;
+    background-color: rgba(0,0,0,.5);
     font-weight: 800;
     color: white;
     -webkit-text-stroke: 1px;
-    text-shadow: 0 1px 0 black;
+    margin: 0 auto;
+    border-radius: 8px;
   }
 
   .card-avatar {
@@ -161,51 +166,10 @@ $cardBorder: 2px solid #6B6E70;
     justify-content: space-around;
     padding-top: 3px;
     padding-bottom: 3px;
-  }
 
-  .graphs {
-    height: 80px;
-    width: 80px;
-    position: absolute;
-    right: 10px;
-    bottom: 25px;
-    background-color: #6B6E70;
-    border-radius: 8px;
-    filter: drop-shadow(2px 2px 0px rgba(0,0,0,.2));
-    padding: 5px;
-  }
-
-  .lane-graph {
-    border-radius: 8px;
-    z-index: 2;
-    opacity: .35;
-    height: 75px;
-    width: 75px;
-    position: absolute;
-    margin: 2.5px 0 0 2.5px;
-  }
-
-  .graph-minimap {
-    height: 75px;
-    width: 75px;
-    position: absolute;
-    z-index: 1;
-    margin: 2.5px 0 0 2.5px;
-    border-radius: 8px;
-    filter: drop-shadow(2px 2px 0px rgba(0,0,0,.2));
-  }
-
-  .graph-roles {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    font-size: .6em;
-    background-color: #474B4F;
-    border-radius: 8px;
-    padding: 5px;
-    width: 40px;
-    text-align: right;
-    filter: drop-shadow(2px 2px 0px rgba(0,0,0,.2));
+    p {
+      margin: 0 0 0 10px;
+    }
   }
 
   .win {
