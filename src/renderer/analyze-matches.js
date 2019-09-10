@@ -19,7 +19,6 @@ function analyzeMatches(matchData) {
  }
 
  let heroArray = (matchData.heroes.sort((a, b) => b.matchCount - a.matchCount)).slice(0, 3);
- console.log(heroArray);
  let topHeroes = [];
 
  heroArray.forEach(function(hero){
@@ -31,40 +30,46 @@ function analyzeMatches(matchData) {
   heroStats.roles = hero.roles;
   topHeroes.push(heroStats);
  });
+  
+  let playerLanes = {};
+    //playerLanes.roam = matchData.lanes.find(x => x.lane == 0).matchCount;
+  playerLanes.safe = matchData.lanes.find(x => x.lane == 1).matchCount;
+  playerLanes.mid = matchData.lanes.find(x => x.lane == 2).matchCount;
+  playerLanes.off = matchData.lanes.find(x => x.lane == 3).matchCount;
 
-
-
-  // RETHINK LANES
-  // if(matchData.mid/matchData.matchCount >= .55){
-  //   playerType += "Mid ";
-  //   cardBg = "card-bg-red.jpg";
-  // }
-  // if(matchData.offlane/matchData.matchCount >= .55){
-  //   playerType += "Offlane ";
-  //   cardBg = "card-bg-green.jpg";
-  // }
-  // if(matchData.safelane/matchData.matchCount >= .55){
-  //   playerType += "Safelane ";
-  //   cardBg = "card-bg-blue.jpg";
-  // }
+  console.log(playerLanes.mid, matchData);
   let playerType = "";
   let cardBg= "card-bg-yellow.jpg";
 
-  if(matchData.supportCount/matchData.matchCount >= .55){
-    playerType += "Support ";
+  if(playerLanes.off/matchData.matchCount >= .55){
+    playerType += "Offlane ";
     cardBg = "card-bg-green.jpg";
   }
-  if(matchData.coreCount/matchData.matchCount >= .55){
-    playerType += "Core";
-    cardBg = "card-bg-red.jpg";
+  if(playerLanes.safe/matchData.matchCount >= .55){
+    playerType += "Safelane ";
+    cardBg = "card-bg-blue.jpg";
   }
+  if(playerLanes.mid/matchData.matchCount >= .55){
+    playerType += "Mid ";
+    cardBg = "card-bg-red.jpg";
+  } else {
+    if(matchData.coreCount/matchData.matchCount >= .6){
+      playerType += "Core";
+      cardBg = "card-bg-red.jpg";
+    }
+  }
+  if(matchData.supportCount/matchData.matchCount >= .6){
+    playerType += "Support";
+    cardBg = "card-bg-green.jpg";
+  }
+
   if(playerType == ""){
     playerType +="Flex";
     cardBg = "card-bg-blue.jpg";
   }
-  // if(sortedHeroes[0].count/counts.total > .5){
-  //   playerType = sortedHeroes[0].name + " Main";
-  // }
+  if((topHeroes[0].wins + topHeroes[0].losses)/matchData.matchCount > .4){
+    playerType += topHeroes[0].heroData.name + " Main";
+  }
 
   playerStats = {};
   playerStats.ptype = playerType;
