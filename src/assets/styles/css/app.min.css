@@ -99,185 +99,6 @@ h2 {
   opacity: 1;
   box-shadow: 0px 0px 20px #fff; }
 
-.featured-player {
-  position: fixed;
-  cursor: pointer;
-  bottom: 40px;
-  left: 50%;
-  width: 250px;
-  box-shadow: 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12);
-  text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
-  height: 350px;
-  margin-left: -141px;
-  padding: 10px;
-  padding-right: 12px;
-  border-radius: 8px;
-  border: 8px black solid;
-  background-color: #6B6E70;
-  transition: opacity .5s ease-in-out, box-shadow .2s; }
-
-.featured-player:hover {
-  box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.3), 0 12px 17px 2px rgba(0, 0, 0, 0.21), 0 5px 22px 4px rgba(0, 0, 0, 0.18); }
-
-.featured-player .name-row {
-  width: 100%;
-  height: 30px;
-  border: 2px solid #6B6E70;
-  background: #474B4F;
-  background-image: url("../../images/black-paper.png");
-  border-radius: 8px 8px 0 0;
-  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12); }
-
-.featured-player .name {
-  margin-top: 7px;
-  font-size: 1em;
-  margin-left: 7px;
-  margin-top: 6px; }
-
-.featured-player .card-img {
-  border: 2px solid #6B6E70;
-  width: 100%;
-  height: 155px;
-  margin-top: -2px;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  justify-content: center; }
-
-.featured-player .card-avatar {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  margin-top: -2px;
-  border: 2px solid #6B6E70;
-  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12); }
-
-.featured-player .card-bg {
-  background-size: cover;
-  background-position: center center;
-  filter: blur(5px);
-  width: calc(100% + 14px);
-  height: calc(100% + 14px);
-  margin: -10px; }
-
-.card-bg-inner {
-  width: 100%; }
-
-.featured-player .info-row {
-  width: 100%;
-  height: 30px;
-  border: 2px solid #6B6E70;
-  background: #474B4F;
-  background-image: url("../../images/black-paper.png");
-  margin-top: -2px;
-  position: relative; }
-
-.featured-player .rank {
-  margin-left: 3px; }
-
-.featured-player .info-row img {
-  position: absolute;
-  right: 10px;
-  top: 2px;
-  height: 26px;
-  border-radius: 20px;
-  filter: drop-shadow(1px 1px 0 #6B6E70) drop-shadow(-1px -1px 0 #6B6E70) drop-shadow(1px -1px 0 #6B6E70) drop-shadow(-1px 1px 0 #6B6E70); }
-
-.featured-player h4 {
-  margin-top: 7px;
-  margin-left: 8px;
-  margin-bottom: 0;
-  font-size: .9em;
-  float: left; }
-
-.featured-player .wl-row {
-  font-size: .9em;
-  float: right;
-  height: 20px;
-  border: 2px solid #6B6E70;
-  border-radius: 8px;
-  background: #474B4F;
-  background-image: url("../../images/black-paper.png");
-  position: absolute;
-  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
-  bottom: 4px;
-  right: 4px;
-  font-weight: bolder;
-  text-shadow: 1px 1px rgba(0, 0, 0, 0.3); }
-
-.featured-player .wl-row .wins {
-  display: inline-block;
-  margin-left: 5px;
-  margin-top: 1px;
-  color: #61892F; }
-
-.featured-player .wl-row .losses {
-  display: inline-block;
-  color: #a33245;
-  margin-top: 1px;
-  margin-left: -3px;
-  margin-right: 3px; }
-
-.featured-player .description {
-  border: 2px solid #6B6E70;
-  margin-top: -2px;
-  position: relative;
-  background-color: #474B4F;
-  background-image: url("../../images/black-paper.png");
-  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
-  border-radius: 0 0 8px 8px;
-  width: 100%;
-  height: 119px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  padding-top: 3px;
-  padding-bottom: 3px; }
-
-.featured-player .graphs {
-  height: 80px;
-  width: 80px;
-  position: absolute;
-  right: 10px;
-  bottom: 25px;
-  background-color: #6B6E70;
-  border-radius: 8px;
-  filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.2));
-  padding: 5px; }
-
-.featured-player .lane-graph {
-  border-radius: 8px;
-  z-index: 2;
-  opacity: .35;
-  height: 75px;
-  width: 75px;
-  position: absolute;
-  margin: 2.5px 0 0 2.5px; }
-
-.featured-player .graph-minimap {
-  height: 75px;
-  width: 75px;
-  position: absolute;
-  z-index: 1;
-  margin: 2.5px 0 0 2.5px;
-  border-radius: 8px;
-  filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.2)); }
-
-.graph-roles {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  font-size: .6em;
-  background-color: #474B4F;
-  border-radius: 8px;
-  padding: 5px;
-  width: 40px;
-  text-align: right;
-  filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.2)); }
-
-.featured-player .recent-hero {
-  float: left; }
-
 .win {
   color: #61892F;
   font-size: .7em;
@@ -291,29 +112,6 @@ h2 {
   margin: 0;
   float: left;
   margin-top: .7em; }
-
-.featured-player .hero {
-  float: left;
-  height: 28px;
-  filter: drop-shadow(0px 2px 0px rgba(0, 0, 0, 0.2));
-  margin-left: 8px;
-  margin-right: -2px;
-  border-radius: 8px 0 0 8px;
-  border: 2px #6B6E70 solid; }
-
-.featured-player .hero-win-loss {
-  background-color: #6B6E70;
-  border-radius: 0 8px 8px 0;
-  filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.2));
-  display: inline-block;
-  width: 38px;
-  height: 28px;
-  border: 2px #6B6E70 solid;
-  font-size: .7em; }
-
-.featured-player .hero-wl-inner {
-  margin-top: .7em;
-  text-align: center; }
 
 #dire {
   float: right; }
@@ -333,3 +131,182 @@ h2 {
 
 #reset:hover {
   transform: rotate(360deg); }
+
+.player-card {
+  cursor: pointer;
+  width: 250px;
+  box-shadow: 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12);
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
+  height: 350px;
+  padding: 10px;
+  padding-right: 12px;
+  border-radius: 5px;
+  border: 8px black solid;
+  background-color: #6B6E70;
+  transition: opacity .5s ease-in-out, box-shadow .2s;
+  position: absolute;
+  left: 340px; }
+  .player-card:hover {
+    box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.3), 0 12px 17px 2px rgba(0, 0, 0, 0.21), 0 5px 22px 4px rgba(0, 0, 0, 0.18); }
+  .player-card .name-row {
+    width: 100%;
+    height: 30px;
+    border: 1px solid white;
+    border-radius: 5px;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    background-image: url("../../images/black-paper.png");
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    color: white; }
+  .player-card .name {
+    font-size: 1em;
+    margin-left: 7px;
+    padding-bottom: 2px; }
+  .player-card .recent-hero {
+    position: relative;
+    height: 33%;
+    border: 1px solid white;
+    margin-top: -2px; }
+  .player-card .hero-win-loss {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 10;
+    top: 0;
+    align-items: center; }
+  .player-card .heroes-wrapper {
+    display: flex;
+    flex-direction: column;
+    background-color: #474B4F;
+    justify-content: space-evenly;
+    margin: -2px; }
+  .player-card .card-img {
+    border: 1px solid white;
+    width: 100%;
+    height: 155px;
+    margin-bottom: 5px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: left;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 5px; }
+  .player-card .hero-wrapper1 {
+    display: none; }
+  .player-card .hero-wl-inner {
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-weight: 900;
+    color: white;
+    margin: 0 auto;
+    border-radius: 5px; }
+  .player-card .card-avatar {
+    margin-top: -2px;
+    width: 155px; }
+  .player-card .info-row {
+    width: 100%;
+    height: 30px;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-image: url("../../images/black-paper.png");
+    margin-bottom: 5px;
+    position: relative;
+    color: white;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12); }
+  .player-card .rank {
+    margin-left: 3px; }
+  .player-card .info-row img {
+    position: absolute;
+    right: 10px;
+    top: 2px;
+    height: 26px;
+    border-radius: 20px;
+    filter: drop-shadow(1px 1px 0 #6B6E70) drop-shadow(-1px -1px 0 #6B6E70) drop-shadow(1px -1px 0 #6B6E70) drop-shadow(-1px 1px 0 #6B6E70); }
+  .player-card h4 {
+    margin-top: 7px;
+    margin-left: 8px;
+    margin-bottom: 0;
+    font-size: .9em;
+    float: left; }
+  .player-card .wl-row {
+    font-size: .9em;
+    float: right;
+    height: 20px;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-image: url("../../images/black-paper.png");
+    position: relative;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    bottom: 4px;
+    right: 4px;
+    font-weight: bolder;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.3); }
+  .player-card .wl-row .wins {
+    display: inline-block;
+    margin-left: 5px;
+    margin-top: 1px;
+    color: #61892F; }
+  .player-card .wl-row .losses {
+    display: inline-block;
+    color: #a33245;
+    margin-top: 1px;
+    margin-left: -3px;
+    margin-right: 3px; }
+  .player-card .description {
+    border: 1px solid white;
+    position: relative;
+    background-image: url("../../images/black-paper.png");
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 5px;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around; }
+    .player-card .description p {
+      margin: 0 0 0 10px; }
+  .player-card .win {
+    color: #61892F;
+    font-size: .7em;
+    margin: 0;
+    float: left;
+    margin-top: .7em; }
+  .player-card .loss {
+    color: #a33245;
+    font-size: .7em;
+    margin: 0;
+    float: left;
+    margin-top: .7em; }
+  .player-card .hero {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; }
+  .player-card .lane-graph {
+    border-radius: 5px;
+    z-index: 2;
+    opacity: .35;
+    height: 75px;
+    width: 75px;
+    top: 0;
+    position: absolute;
+    margin: 2.5px 0 0 2.5px; }
+  .player-card .graph-minimap {
+    height: 75px;
+    width: 75px;
+    top: 0;
+    position: absolute;
+    z-index: 1;
+    margin: 2.5px 0 0 2.5px;
+    border-radius: 5px; }
+  .player-card .graph-roles {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: .6em;
+    background-color: #474B4F;
+    border-radius: 5px;
+    padding: 5px;
+    width: 40px;
+    text-align: right; }

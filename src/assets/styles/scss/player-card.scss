@@ -1,0 +1,235 @@
+//$cardBorder: 2px solid #6B6E70;
+$cardBorder: 1px solid white;
+
+@mixin card-border-radius {
+    border-radius: 5px;
+}
+
+.player-card{
+  cursor: pointer;
+  width: 250px;
+  box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
+  text-shadow: 1px 1px rgba(0,0,0,.2);
+  height: 350px;
+  padding: 10px;
+  padding-right: 12px;
+  @include card-border-radius;
+  border: 8px black solid;
+  background-color: #6B6E70;
+  transition: opacity .5s ease-in-out, box-shadow .2s;
+  position: absolute;
+  left: 340px;
+
+  &:hover {
+    box-shadow: 0 7px 8px -4px rgba(0,0,0,.3), 0 12px 17px 2px rgba(0,0,0,.21), 0 5px 22px 4px rgba(0,0,0,.18);
+  }
+
+  .name-row {
+    width: 100%;
+    height: 30px;
+    border: $cardBorder;
+    @include card-border-radius;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    background-image: url("../../images/black-paper.png");
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    color: white;
+  }
+
+  .name {
+    font-size: 1em;
+    margin-left: 7px;
+    padding-bottom: 2px;
+  }
+
+  .recent-hero {
+    position: relative;
+    height: 33%;
+    border: $cardBorder;
+    margin-top: -2px;
+  }
+
+  .hero-win-loss {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 10;
+    top: 0;
+    align-items: center;
+  }
+
+  .heroes-wrapper {
+    display: flex;
+    flex-direction: column;
+    background-color: #474B4F;
+    justify-content: space-evenly;
+    margin: -2px;
+  }
+
+  .card-img {
+    border: $cardBorder;
+    width: 100%;
+    height: 155px;
+    margin-bottom: 5px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: left;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    @include card-border-radius;
+  }
+
+  .hero-wrapper1 {
+    display: none;
+  }
+ 
+  .hero-wl-inner{
+    padding: 5px;
+    background-color: rgba(0,0,0,.5);
+    font-weight: 900;
+    color: white;
+    margin: 0 auto;
+    @include card-border-radius;
+  }
+
+  .card-avatar {
+    margin-top: -2px;
+    width: 155px;
+  }
+
+  .info-row {
+    width: 100%;
+    height: 30px;
+    border: $cardBorder;
+    @include card-border-radius;
+    background-image: url("../../images/black-paper.png");
+    margin-bottom: 5px;
+    position: relative;
+    color: white;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+  }
+  .rank {
+    margin-left: 3px;
+  }
+  .info-row img {
+    position: absolute;
+    right: 10px;
+    top: 2px;
+    height: 26px;
+    border-radius: 20px;
+    filter: drop-shadow(1px 1px 0 #6B6E70) drop-shadow(-1px -1px 0 #6B6E70) drop-shadow(1px -1px 0 #6B6E70) drop-shadow(-1px 1px 0 #6B6E70);
+  }
+
+  h4 {
+    margin-top: 7px;
+    margin-left: 8px;
+    margin-bottom: 0;
+    font-size: .9em;
+    float: left;
+  }
+
+  .wl-row {
+    font-size: .9em;
+    float: right;
+    height: 20px;
+    border: $cardBorder;
+    @include card-border-radius;
+    background-image: url("../../images/black-paper.png");
+    position: relative;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    bottom: 4px;
+    right: 4px;
+    font-weight: bolder;
+    text-shadow: 1px 1px rgba(0,0,0,.3);
+  }
+
+  .wl-row .wins {
+    display: inline-block;
+    margin-left: 5px;
+    margin-top: 1px;
+    color: #61892F;
+  }
+
+  .wl-row .losses {
+    display: inline-block;
+    color: #a33245;
+    margin-top: 1px;
+    margin-left: -3px;
+    margin-right: 3px;
+  }
+
+  .description {
+    border: $cardBorder;
+    position: relative;
+    background-image: url("../../images/black-paper.png");
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    @include card-border-radius;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    p {
+      margin: 0 0 0 10px;
+    }
+  }
+
+  .win {
+    color: #61892F;
+    font-size: .7em;
+    margin: 0;
+    float: left;
+    margin-top: .7em;
+  }
+
+  .loss {
+    color: #a33245;
+    font-size: .7em;
+    margin: 0;
+    float: left;
+    margin-top: .7em;
+  }
+
+  .hero {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .lane-graph {
+    @include card-border-radius;
+    z-index: 2;
+    opacity: .35;
+    height: 75px;
+    width: 75px;
+    top:0;
+    position: absolute;
+    margin: 2.5px 0 0 2.5px;
+  }
+
+  .graph-minimap {
+    height: 75px;
+    width: 75px;
+    top: 0;
+    position: absolute;
+    z-index: 1;
+    margin: 2.5px 0 0 2.5px;
+    @include card-border-radius;
+  }
+
+  .graph-roles {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: .6em;
+    background-color: #474B4F;
+    @include card-border-radius;
+    padding: 5px;
+    width: 40px;
+    text-align: right;
+  }
+  
+}

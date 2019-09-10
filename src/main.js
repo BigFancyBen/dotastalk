@@ -4,7 +4,7 @@ const electron = require('electron');
 const { setMainMenu } = require('./main/main-menu');
 const { parseLog } = require('./main/logwatch');
 const { setStorage } = require('./main/setStorage');
-//require('electron-debug')({showDevTools: true});
+require('electron-debug')({showDevTools: true});
 const storage = require('electron-json-storage');
 const ipc = electron.ipcMain;
 var watch = require('node-watch');

@@ -19,13 +19,15 @@ function buildFeaturedHtml(data) {
       </div>`;
     }
   }
-  var html = `<div class="featured-player" style="background: url('./assets/images/${data.playerStats.cardBg}')">
+  var html = `<div class="player-card" style="background: url('./assets/images/${data.playerStats.cardBg}')">
    <div class="name-row">
      <h3 class="name">${data.name}</h3>
    </div>
    <div class ="card-img">
-       <div class="card-bg"><img src="${data.avatar}" alt="" class="card-bg-inner"></div>
-       <img src="${data.avatar}" alt="" class="card-avatar">
+    <img src=${data.avatar} alt="" class="card-avatar"/>
+    <div class="heroes-wrapper">
+      ${heroSection}
+    </div>
    </div>
    <div class="info-row">
      <h4 class="role">${data.playerStats.ptype}</h4>
@@ -34,7 +36,6 @@ function buildFeaturedHtml(data) {
    </div>
    <div class="body-row">
      <div class="description">
-      ${heroSection}
       ${graphHTML}
      </div>
    </div>
