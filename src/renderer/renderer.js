@@ -121,8 +121,12 @@ function getPlayer(playerID, slot, side) {
           return response.json()
       });
     }
-    var apiRequest2 = fetch(`https://api.opendota.com/api/players/${playerID}/recentMatches?significant=0`).then(function(response){
-        return response.json()
+    var apiRequest2 = fetch(`https://api.stratz.com/api/v1/player/${playerID}/behaviorChart?take=100`).then(function(response){
+        if( response.ok){
+          return response.json()
+        } else {
+          return "";
+        }
     });
     var apiRequest3 = fetch(`https://api.opendota.com/api/players/${playerID}`).then(function(response){
         return response.json()

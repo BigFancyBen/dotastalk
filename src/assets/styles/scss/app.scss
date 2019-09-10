@@ -1,9 +1,9 @@
 body {
-  color: #dddddd;
-  font-family: "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
+  color: white;
+  font-family: "Arial Black", Tahoma, Verdana, Arial, sans-serif;
   overflow: hidden;
   margin-bottom: 50px;
-  background-color: #222629;
+  background-color: #333333;
   text-rendering: optimizeLegibility;
 }
 
@@ -13,13 +13,16 @@ body {
 }
 
 .player {
-  margin: 5px;
+  margin: 8px;
   cursor: pointer;
   position: relative;
   box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
   transition: box-shadow .2s;
-  background-color: #6B6E70;
-  border-radius: 8px;
+  background-image: url("../../images/player-bg.png");
+  border-radius: 5px;
+  border: 1px solid white;
+  font-family: Arial;
+  width: 210px;
 }
 
 .player:hover {
@@ -31,21 +34,21 @@ body {
   font-size: 14px;
   font-weight: bold;
   vertical-align: top;
-  margin: 5px;
+  margin: 8px;
   margin-bottom: 0;
   padding: 8px;
   text-align: center;
   overflow: hidden;
-  background-color: #474B4F;
-  border-radius: 8px;
+  background-color: rgba(0,0,0,.4);
+  border-radius: 5px;
   white-space: nowrap;
   overflow: hidden;
-  width: 175px;
+  border: 1px solid white;
   text-overflow: ellipsis;
   box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
 }
 .player-matches {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: normal;
 }
 .player-rank {
@@ -62,11 +65,11 @@ body {
 .player-avatar {
   height: 75px;
   display: block;
-  border-radius: 8px;
-  margin: 5px;
+  border-radius: 5px;
+  margin: 8px;
   float: left;
   box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
-  border: 2px #474B4F solid;
+  border: 1px solid white;
 }
 
 .side {
@@ -85,7 +88,7 @@ h2 {
 .rank  {
   display: block;
   float: right;
-  margin: 5px;
+  margin: 8px;
   position: relative;
   width: 75px;
 }
@@ -130,10 +133,19 @@ h2 {
 
 #dire {
   float: right;
+
+  .player{
+    background-color: rgb(48, 34, 36);;
+  }
+
 }
 
 #radiant {
   float: left;
+
+  .player {
+    background-color: rgb(34, 48, 39);
+  }
 }
 
 #reset{

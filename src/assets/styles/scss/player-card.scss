@@ -41,18 +41,22 @@ $cardBorder: 1px solid white;
     font-size: 1em;
     margin-left: 7px;
     padding-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .recent-hero {
     position: relative;
-    height: 33%;
-    border: $cardBorder;
-    margin-top: -2px;
+    height: 100%;
+    min-height: 0;
   }
 
   .hero-win-loss {
     position: absolute;
     width: 100%;
+    border: $cardBorder;
+    background-color: rgba(0, 0, 0, 0.5);
     height: 100%;
     display: flex;
     z-index: 10;
@@ -63,9 +67,8 @@ $cardBorder: 1px solid white;
   .heroes-wrapper {
     display: flex;
     flex-direction: column;
-    background-color: #474B4F;
     justify-content: space-evenly;
-    margin: -2px;
+    flex: 1;
   }
 
   .card-img {
@@ -86,8 +89,6 @@ $cardBorder: 1px solid white;
   }
  
   .hero-wl-inner{
-    padding: 5px;
-    background-color: rgba(0,0,0,.5);
     font-weight: 900;
     color: white;
     margin: 0 auto;
@@ -109,53 +110,56 @@ $cardBorder: 1px solid white;
     position: relative;
     color: white;
     box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    display: flex;
+    align-items: center;
   }
   .rank {
     margin-left: 3px;
   }
   .info-row img {
     position: absolute;
-    right: 10px;
-    top: 2px;
-    height: 26px;
-    border-radius: 20px;
-    filter: drop-shadow(1px 1px 0 #6B6E70) drop-shadow(-1px -1px 0 #6B6E70) drop-shadow(1px -1px 0 #6B6E70) drop-shadow(-1px 1px 0 #6B6E70);
+    right: 0;
+    top: 2;
+    padding: 0 3px;
+    height: 100%;
+    background-color: rgba(256,256,256, .1);
   }
 
   h4 {
-    margin-top: 7px;
-    margin-left: 8px;
-    margin-bottom: 0;
-    font-size: .9em;
-    float: left;
+    margin: 0;
+    margin-left: 7px;
+    padding-bottom: 2px;
   }
 
   .wl-row {
     font-size: .9em;
     float: right;
     height: 20px;
-    border: $cardBorder;
     @include card-border-radius;
+    background-color: black;
+    border: 2px solid white;
     background-image: url("../../images/black-paper.png");
     position: relative;
     box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
-    bottom: 4px;
-    right: 4px;
+    bottom: 21px;
+    right: -5px;
     font-weight: bolder;
     text-shadow: 1px 1px rgba(0,0,0,.3);
+    
+    .win-loss{
+        margin-top: -1px;
+    }
   }
 
   .wl-row .wins {
     display: inline-block;
     margin-left: 5px;
-    margin-top: 1px;
     color: #61892F;
   }
 
   .wl-row .losses {
     display: inline-block;
     color: #a33245;
-    margin-top: 1px;
     margin-left: -3px;
     margin-right: 3px;
   }
@@ -167,7 +171,7 @@ $cardBorder: 1px solid white;
     box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
     @include card-border-radius;
     width: 100%;
-    height: 100px;
+    height: 115px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
