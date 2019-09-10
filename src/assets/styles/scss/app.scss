@@ -2,7 +2,7 @@ body {
   color: white;
   font-family: "Arial Black", Tahoma, Verdana, Arial, sans-serif;
   overflow: hidden;
-  margin-bottom: 50px;
+  margin: 0;
   background-color: #333333;
   text-rendering: optimizeLegibility;
 }
@@ -13,7 +13,7 @@ body {
 }
 
 .player {
-  margin: 8px;
+  margin: 4px;
   cursor: pointer;
   position: relative;
   box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
@@ -34,7 +34,7 @@ body {
   font-size: 14px;
   font-weight: bold;
   vertical-align: top;
-  margin: 8px;
+  margin: 4px;
   margin-bottom: 0;
   padding: 8px;
   text-align: center;
@@ -66,7 +66,7 @@ body {
   height: 75px;
   display: block;
   border-radius: 5px;
-  margin: 8px;
+  margin: 4px;
   float: left;
   box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
   border: 1px solid white;
@@ -75,7 +75,7 @@ body {
 .side {
   width: 100%;
   text-align: center;
-  color: #61892F;
+  color: white;
   text-shadow: black 0px 0px 10px;
 }
 
@@ -88,7 +88,7 @@ h2 {
 .rank  {
   display: block;
   float: right;
-  margin: 8px;
+  margin: 4px;
   position: relative;
   width: 75px;
 }
@@ -161,4 +161,74 @@ h2 {
 
 #reset:hover{
   transform: rotate(360deg);
+}
+
+.card-wrapper {
+  display: flex;
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.featured-outer {
+  opacity: 0;
+  display: none;
+}
+
+.currently-featured {
+  opacity: 1;
+  display: block;
+}
+
+
+@media screen and (max-height: 790px) {
+
+  .featured-outer + .currently-featured {
+    opacity: 0;
+    display: none;
+  }
+
+  .team {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 50%;
+    justify-content: center;
+  }
+
+  @media screen and (max-width: 900px){
+    .team {
+      width: 100%;
+    }
+  }
+
+  @media screen and (min-width: 1025px) and (min-height: 730px) {
+    .featured-outer + .currently-featured {
+      opacity: 1;
+      display: block;
+    }
+
+    .card-wrapper {
+      align-items: flex-end;
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  @media screen and (min-height: 791px){
+    @media screen and (min-width: 740px){
+      .featured-outer + .currently-featured {
+        opacity: 1;
+        display: block;
+      }
+    }
+    @media screen and (max-width: 740px){
+      .featured-outer + .currently-featured {
+        opacity: 0;
+        display: none;
+      }
+    }
+  }
 }

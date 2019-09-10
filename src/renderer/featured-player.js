@@ -15,7 +15,7 @@ function buildFeaturedHtml(data) {
     heroSection += `<div class="recent-hero">
        <img src="${data.playerStats.heroes[i].heroData.url}" alt="" class="hero">
        <div class="hero-win-loss">
-         <div class="hero-wl-inner">${data.playerStats.heroes[i].wins}-${data.playerStats.heroes[i].losses}</div>
+         <div class="hero-wl-inner">${data.playerStats.heroes[i].wins} – ${data.playerStats.heroes[i].losses}</div>
        </div>
       </div>`;
     }

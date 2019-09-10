@@ -46,12 +46,12 @@ function showFeature(){
   playerID = this.id;
   var players = document.getElementsByClassName("featured-outer");
   for (var i = 0; i < players.length; i++) {
-    players[i].setAttribute("style", "opacity: 0; display: none;");
+    players[i].classList.remove("currently-featured");
   }
   curCard = "featured-player-" + playerID;
   cur = document.getElementById(curCard);
   if (cur != null) {
-    cur.setAttribute("style", "opacity: 1; display: block;");
+    cur.classList.add("currently-featured");
   }
 }
 
@@ -60,12 +60,11 @@ function buildPlayerCard (data) {
     data.playerStats = analyzeMatches(data.matches);
     fp = document.createElement("div");
     fp.setAttribute('class', 'featured-outer');
-    fp.style.opacity = 0;
-    fp.style.display = "none";
     fp.id = "featured-player-" + data.id;
     fp.onclick = function() {shell.openExternal("https://www.opendota.com/players/" + data.id)};
     fp.innerHTML = buildFeaturedHtml(data);
-    document.body.appendChild(fp);
+    let cardWrapper = document.getElementsByClassName("card-wrapper")[0];
+    cardWrapper.appendChild(fp);
   }
 }
 

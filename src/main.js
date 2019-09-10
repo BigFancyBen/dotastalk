@@ -17,6 +17,8 @@ app.on('ready', () => {
     show: false,
     resizable: true,
     width: 850,
+    'minWidth': 475,
+    'minHeight': 600,
     nodeIntegration: true,
     unsafeEval: true,
     height: 850,
