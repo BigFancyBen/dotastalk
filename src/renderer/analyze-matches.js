@@ -44,11 +44,7 @@ function analyzeMatches(matchData) {
   playerLanes.safe = checkLanes(matchData.lanes.find(x => x.lane == 1)|| 0);
   playerLanes.mid = checkLanes(matchData.lanes.find(x => x.lane == 2)|| 0);
   playerLanes.off = checkLanes(matchData.lanes.find(x => x.lane == 3)|| 0);
-
-
-
-  console.log(playerLanes);
-
+  
   let playerType = "";
   let cardBg= "card-bg-yellow.jpg";
 
