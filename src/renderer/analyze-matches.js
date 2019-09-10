@@ -30,14 +30,25 @@ function analyzeMatches(matchData) {
   heroStats.roles = hero.roles;
   topHeroes.push(heroStats);
  });
-  
-  let playerLanes = {};
-    //playerLanes.roam = matchData.lanes.find(x => x.lane == 0).matchCount;
-  playerLanes.safe = matchData.lanes.find(x => x.lane == 1).matchCount;
-  playerLanes.mid = matchData.lanes.find(x => x.lane == 2).matchCount;
-  playerLanes.off = matchData.lanes.find(x => x.lane == 3).matchCount;
 
-  console.log(playerLanes.mid, matchData);
+  function checkLanes(curLane) {
+    if (curLane != 0){
+      return curLane.matchCount;
+    } else {
+      return 0;
+    }
+  }
+
+  let playerLanes = {};
+  playerLanes.roam = checkLanes(matchData.lanes.find(x => x.lane == 0)|| 0);
+  playerLanes.safe = checkLanes(matchData.lanes.find(x => x.lane == 1)|| 0);
+  playerLanes.mid = checkLanes(matchData.lanes.find(x => x.lane == 2)|| 0);
+  playerLanes.off = checkLanes(matchData.lanes.find(x => x.lane == 3)|| 0);
+
+
+
+  console.log(playerLanes);
+
   let playerType = "";
   let cardBg= "card-bg-yellow.jpg";
 
@@ -54,12 +65,12 @@ function analyzeMatches(matchData) {
     cardBg = "card-bg-red.jpg";
   } else {
     if(matchData.coreCount/matchData.matchCount >= .6){
-      playerType += "Core";
+      playerType += "Core ";
       cardBg = "card-bg-red.jpg";
     }
   }
   if(matchData.supportCount/matchData.matchCount >= .6){
-    playerType += "Support";
+    playerType += "Support ";
     cardBg = "card-bg-green.jpg";
   }
 
