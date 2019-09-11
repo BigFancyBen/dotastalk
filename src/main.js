@@ -21,7 +21,7 @@ app.on('ready', () => {
     'minHeight': 600,
     nodeIntegration: true,
     unsafeEval: true,
-    height: 850,
+    height: 900,
     icon: path.join(__dirname, 'assets/images/icon_64x64.png')
   });
   mainWindow.loadURL(path.join('file://', __dirname, 'index.html'));

@@ -100,6 +100,8 @@ h2 {
 
 .player-rank-stars{
   width: 100%;
+  right:0;
+  top: 100%;
   margin-top: -15px;
   position: absolute;
   filter: drop-shadow(2px 1px 0px rgba(0,0,0,.2));
@@ -147,20 +149,24 @@ h2 {
     background-color: rgb(34, 48, 39);
   }
 }
+#game {
+  margin-top: 55px;
+}
 
 #reset{
   position: absolute;
   height: 30px;
   width: 30px;
-  top: 5px;
-  right: 5px;
+  top: 11px;
+  z-index: 5;
+  right: 11px;
   background-image: url('../../images/reload.png');
   background-size: cover;
-  transition: all .5s ease-in-out;
+  transition: all .7s ease-in-out;
 }
 
 #reset:hover{
-  transform: rotate(360deg);
+  transform: rotate(270deg);
 }
 
 .card-wrapper {
@@ -171,6 +177,7 @@ h2 {
   align-items: center;
   justify-content: center;
   pointer-events: none;
+  top: 0; left: 0; bottom: 0; right: 0;
 }
 
 .featured-outer {
@@ -181,6 +188,31 @@ h2 {
 .currently-featured {
   opacity: 1;
   display: block;
+}
+
+
+a.nav-item {
+  color: #dddddd;
+  text-decoration: none;
+  padding: 15px 30px;
+  text-align: center;
+  &:hover {
+    color: #b4b4b4;
+  }
+}
+
+a.nav-item.active {
+  background-color: #333;
+}
+
+.nav-wrapper {
+  display: flex;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  background-color: #111;
+  justify-content: center;
+  align-items: center;
 }
 
 

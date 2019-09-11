@@ -7,49 +7,14 @@
   </head>
   <body>
     <div id="reset"></div>
-    <div id="game"></div>
+    <div id="game"><!-- player-icons.js -->
+      <div class="loading-animation"><div></div><div></div><div></div></div>
+    </div>
+    <div class="nav-wrapper">
+      <a class="nav-item active" href="./index.html">Pregame</a>
+      <a class="nav-item" href="./coach.html">Coach</a>
+    </div>
     <div class="card-wrapper"></div>
-    <script id="teams-overview" type="text/x-handlebars-template">
-      <div class='main'>
-        <div class="team" id="radiant">
-          <h2 class="side">Radiant</h2>
-          {{#each players}}
-            {{#if side}}
-            <div class="player" id="{{this.id}}">
-              <div class="player-name">{{this.name}}<div class="player-matches">{{this.wl.win}}-{{this.wl.lose}}</div></div>
-              <img src="{{this.avatar}}" alt="" class="player-avatar">
-              <div class="rank">
-                <img src="{{rank_icon}}" alt="" class="player-rank-icon">
-                {{#if rank_stars}}
-                  <img src="{{rank_stars}}" alt="" class="player-rank-stars">
-                {{/if}}
-                <p class="player-rank" >{{this.rank}}</p>
-              </div>
-            </div>
-            {{/if}}
-          {{/each}}
-        </div>
-        <div class="team" id="dire">
-          <h2 class="side">Dire</h2>
-          {{#each players}}
-            {{#unless side}}
-              <div class="player" id="{{this.id}}">
-                <div class="player-name">{{this.name}}<div class="player-matches">{{this.wl.win}}-{{this.wl.lose}}</div></div>
-                <div class="card-img"></div>
-                <img src="{{this.avatar}}" alt="" class="player-avatar">
-                <div class="rank">
-                  <img src="{{rank_icon}}" alt="" class="player-rank-icon">
-                  {{#if rank_stars}}
-                    <img src="{{rank_stars}}" alt="" class="player-rank-stars">
-                  {{/if}}
-                  <p class="player-rank" >{{this.rank}}</p>
-                </div>
-              </div>
-            {{/unless}}
-          {{/each}}
-        </div>
-      </div>
-    </script>
   <script>
     require('./renderer/renderer.js');
   </script>

@@ -1,13 +1,12 @@
 var electron = require('electron');
 const remote = require('electron').remote;
 const ipc = require('electron').ipcRenderer;
-const Handlebars = require('handlebars');
-var template = Handlebars.compile(document.getElementById("teams-overview").innerHTML);
 document.getElementById("reset").onclick = function() {resetGame()};
 const shell = require('electron').shell;
 const { buildFeaturedHtml } = require('./featured-player.js');
 const { getHeroByID } = require('./heroes.js');
 const { analyzeMatches } = require('./analyze-matches.js');
+const { buildPlayerIcons } = require('./player-icons.js');
 
 
 
@@ -100,7 +99,7 @@ function buildMatch(matchInfo) {
     getPlayer(curID, curSlot, side).then((data) => {
       match.players.push(data);
       if (match.players.length > 9) {
-        var html = template(match);
+        var html = buildPlayerIcons(match);
         document.getElementById("game").innerHTML = html;
         clickToShowPlayer();
       }
