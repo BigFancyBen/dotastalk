@@ -22,14 +22,14 @@ function buildPlayerIcons(data) {
     return playerString;
   }
 
-  data.players.forEach(element => {
+  data.forEach(element => {
     if (element.side){
       radiantTeam+=buildTeam(element);
     } else {
       direTeam+=buildTeam(element);
     }
   });
-  
+
   let playerIconHtml = `<div class='main'>
     <div class="team" id="radiant">
       <h2 class="side">Radiant</h2>

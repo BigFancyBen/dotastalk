@@ -23,8 +23,8 @@ ipc.on('currentPlayer', function(event, playerID) {
   localStorage.setItem("activePlayer", playerID);
 });
 
-ipc.on('updatedMatches', function (event, games) {
-  buildMatch(games[games.length - 1]);
+ipc.on('updatedMatches', function (event, playerArray) {
+  buildMatch(playerArray);
 })
 
 ipc.on('selectPlayer', function(event){
@@ -76,29 +76,20 @@ function clickToShowPlayer() {
   }
 }
 
-function buildMatch(matchInfo) {
+function buildMatch(playerArray) {
   //make api calls to get data for all players
-  //build match object to return
-  let match = {};
-  if(matchInfo.includes("DOTA_GAMEMODE_CUSTOM")){
-    match.gameMode = "Custom";
-    return match;
-  } else {
-    matchRegex = /([DOTA])\w+/;
-    match.gameMode = matchInfo.match(matchRegex)[0];
+  console.log(localStorage.getItem("activePlayer"));
+  let side = playerArray.find(x => x.id == localStorage.getItem("activePlayer"))>=5 ? false : true;
+
+  //var side = playerArray.find(a =>a.includes(localStorage.getItem("activePlayer"))).substr(0,1)>=5 ? false : true;
+  let match = [];
+  if (playerArray.length > 10) {
+    console.log("gin rummy its war time quick tim event");
   }
-  lobbyRegex = /\((Lobby)(.*?)\)/;
-  playerIDs = matchInfo.match(lobbyRegex)[2].split(" ").splice(3);
-  match.players = [];
-  let curIDRegex = /^(.*?U:1:)/;
-  var side = playerIDs.find(a =>a.includes(localStorage.getItem("activePlayer"))).substr(0,1)>=5 ? false : true;
-  for (var value of playerIDs) {
-    curID= value.replace(curIDRegex, "");
-    curID = curID.substr(0, curID.length - 1);
-    curSlot = value.charAt(0);
-    getPlayer(curID, curSlot, side).then((data) => {
-      match.players.push(data);
-      if (match.players.length > 9) {
+  for (var value of playerArray) {
+    getPlayer(value.id, value.slot, side).then((data) => {
+      match.push(data);
+      if (match.length > 9) {
         var html = buildPlayerIcons(match);
         document.getElementById("game").innerHTML = html;
         clickToShowPlayer();
