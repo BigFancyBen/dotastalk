@@ -472,10 +472,13 @@ a.nav-item.active {
   margin-top: 20px;
   transition: all .5s;
   opacity: 1;
-  background-color: #086320; }
+  background-color: #086320;
+  cursor: pointer; }
   #accept-teams-button.not-ready {
     opacity: .5;
     background-color: transparent; }
+  #accept-teams-button:hover {
+    color: #b4b4b4; }
 
 #game {
   text-align: center; }

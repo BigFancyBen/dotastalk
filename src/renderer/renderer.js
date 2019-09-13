@@ -164,6 +164,7 @@ function checkTeams(){
 function rebuildTeam(){
   let dire = document.getElementById("dire");
   let radiant = document.getElementById("radiant");
+  document.getElementById("game").innerHTML = '<div class="loading-animation"><div></div><div></div><div></div></div>';
   playerIdArray =[];
 
   Array.from(radiant.childNodes).forEach(function (element) {

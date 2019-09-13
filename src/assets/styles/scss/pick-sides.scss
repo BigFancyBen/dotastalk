@@ -41,10 +41,15 @@
   transition: all .5s ;
   opacity: 1;
   background-color: #086320;
+  cursor: pointer;
 
   &.not-ready {
     opacity: .5;
     background-color: transparent;
+  }
+
+  &:hover {
+    color: #b4b4b4;
   }
 }
 
