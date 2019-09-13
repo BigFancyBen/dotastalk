@@ -138,6 +138,7 @@ h2 {
   top: 11px;
   z-index: 5;
   right: 11px;
+  cursor: pointer;
   background-image: url("../../images/reload.png");
   background-size: cover;
   transition: all .7s ease-in-out; }
@@ -436,3 +437,44 @@ a.nav-item.active {
   50%, 100% {
     top: 24px;
     height: 32px; } }
+
+.pick-sides {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; }
+  .pick-sides .player {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .pick-sides .player .player-name {
+      width: 100%;
+      border: 0;
+      box-shadow: none;
+      background-color: transparent; }
+  .pick-sides .trash-icon {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    height: 20px;
+    width: 20px;
+    fill: white;
+    transition: fill .5s;
+    z-index: 9; }
+    .pick-sides .trash-icon:hover {
+      fill: red; }
+
+#accept-teams-button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid white;
+  display: inline-block;
+  margin-top: 20px;
+  transition: all .5s;
+  opacity: 1;
+  background-color: #086320; }
+  #accept-teams-button.not-ready {
+    opacity: .5;
+    background-color: transparent; }
+
+#game {
+  text-align: center; }

@@ -1,22 +1,26 @@
 var electron = require('electron');
 const remote = require('electron').remote;
 const ipc = require('electron').ipcRenderer;
-document.getElementById("reset").onclick = function() {resetGame()};
 const shell = require('electron').shell;
 const { buildFeaturedHtml } = require('./featured-player.js');
 const { getHeroByID } = require('./heroes.js');
 const { analyzeMatches } = require('./analyze-matches.js');
 const { buildPlayerIcons } = require('./player-icons.js');
-
+const { pickSides } = require('./pick-sides.js');
 
 
 const RANKS = ["Herald", "Guardian", "Crusader", "Archon", "Legend", "Ancient", "Divine"];
 const NO_AVATAR_IMG = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg";
 
-resetGame();
+window.onload = function(){
+  ipc.send('newLog');
+  document.getElementById("reset").onclick = function(){resetGame()};
+};
 
 function resetGame(){
-  ipc.send('newLog');
+  localStorage.removeItem("lastMatch");
+  localStorage.removeItem("lastMatchData");
+  location.reload();
 }
 
 ipc.on('currentPlayer', function(event, playerID) {
@@ -32,6 +36,7 @@ ipc.on('selectPlayer', function(event){
   for (var i = 0; i < players.length; i++) {
     players[i].addEventListener('click', selectUser, false);
     players[i].removeEventListener('click', showFeature, false);
+    players[i].removeEventListener('click', pickableTeams, false);
     players[i].classList.add("fade-out");
   }
 })
@@ -72,30 +77,115 @@ function clickToShowPlayer() {
   for (var i = 0; i < players.length; i++) {
     players[i].addEventListener("click", showFeature);
     players[i].removeEventListener('click', selectUser, false);
+    players[i].removeEventListener('click', pickableTeams, false);
     players[i].classList.remove("fade-out");
   }
 }
 
 function buildMatch(playerArray) {
   //make api calls to get data for all players
-  console.log(localStorage.getItem("activePlayer"));
-  let side = playerArray.find(x => x.id == localStorage.getItem("activePlayer"))>=5 ? false : true;
-
-  //var side = playerArray.find(a =>a.includes(localStorage.getItem("activePlayer"))).substr(0,1)>=5 ? false : true;
   let match = [];
-  if (playerArray.length > 10) {
-    console.log("gin rummy its war time quick tim event");
+  let side = playerArray.find(x => x.id == localStorage.getItem("activePlayer")).slot>=5 ? false : true;
+
+  //"cache" the most recent match;
+  if (playerArray == localStorage.getItem("lastMatch") && localStorage.getItem("lastMatchData")){
+    document.getElementsByTagName("BODY")[0].innerHTML = localStorage.getItem("lastMatchData");
+    document.getElementById("reset").onclick = function(){resetGame()};
+    clickToShowPlayer();
+  } else {
+    localStorage.setItem("lastMatch" , playerArray);
+    for (var value of playerArray) {
+      getPlayer(value.id, value.slot, side).then((data) => {
+        match.push(data);
+        if (match.length == playerArray.length) {
+          if (match.length > 10) {
+            var html = pickSides(match);
+            document.getElementById("game").innerHTML = html;
+            pickTeamsClicks();
+          } else {
+            var html = buildPlayerIcons(match.sort((a, b) => a.slot - b.slot));
+            document.getElementById("game").innerHTML = html;
+            localStorage.setItem("lastMatchData" , document.getElementsByTagName("BODY")[0].innerHTML);
+            clickToShowPlayer();
+          }
+        }
+      })
+    }
   }
-  for (var value of playerArray) {
-    getPlayer(value.id, value.slot, side).then((data) => {
-      match.push(data);
-      if (match.length > 9) {
-        var html = buildPlayerIcons(match);
-        document.getElementById("game").innerHTML = html;
-        clickToShowPlayer();
-      }
-    })
+}
+
+function pickTeamsClicks(){
+  var players = document.getElementsByClassName("player");
+  for (var i = 0; i < players.length; i++) {
+    players[i].addEventListener("click", pickableTeams);
+    players[i].removeEventListener('click', selectUser, false);
+    players[i].removeEventListener('click', showFeature, false);
+    players[i].classList.remove("fade-out");
   }
+  document.getElementsByClassName("card-wrapper")[0].innerHTML = "";
+  let trashCans = document.getElementsByClassName("trash-icon");
+  Array.from(trashCans).forEach((element) => {
+    element.addEventListener('click', deleteElement, false);
+  });
+}
+
+function pickableTeams(){
+  let dire = document.getElementById("dire");
+  let radiant = document.getElementById("radiant");
+  if (this.parentNode && this.parentNode.id == "dire"){
+    radiant.appendChild(this);
+  } else if (this.parentNode && this.parentNode.id == "radiant") {
+    dire.appendChild(this);
+  }
+  checkTeams();
+}
+
+function deleteElement(){
+  if(this.parentNode){
+    this.parentNode.remove();
+  }
+  checkTeams();
+}
+
+function checkTeams(){
+  let dire = document.getElementById("dire");
+  let radiant = document.getElementById("radiant");
+  let submitTeams = document.getElementById("accept-teams-button");
+  if(dire.childElementCount == 6 && radiant.childElementCount == 6){
+    submitTeams.classList.remove("not-ready");
+    submitTeams.addEventListener("click", rebuildTeam);
+  } else {
+    submitTeams.classList.add("not-ready");
+    submitTeams.removeEventListener("click", rebuildTeam, false);
+  }
+}
+
+function rebuildTeam(){
+  let dire = document.getElementById("dire");
+  let radiant = document.getElementById("radiant");
+  playerIdArray =[];
+
+  Array.from(radiant.childNodes).forEach(function (element) {
+    if(element.id){
+      let curPlayer = {};
+      curPlayer.id = element.id;
+      playerIdArray.push(curPlayer);
+    }
+  });
+
+  Array.from(dire.childNodes).forEach(function (element) {
+    if(element.id){
+      let curPlayer = {};
+      curPlayer.id = element.id;
+      playerIdArray.push(curPlayer);
+    }
+  });
+
+  playerIdArray.forEach(function(value, i){
+    playerIdArray[i].slot = i;
+  });
+
+  buildMatch(playerIdArray);
 }
 
 function getPlayer(playerID, slot, side) {
@@ -139,6 +229,7 @@ function buildPlayer(playerInfo, slotNum){
   playerObj = playerInfo["player"];
   playerData.name = "Unknown";
   playerData.avatar = NO_AVATAR_IMG;
+  playerData.slot = slotNum;
 
     if (playerObj.profile != null ) {
       playerData.name = playerObj.profile.personaname;

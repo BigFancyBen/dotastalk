@@ -1,9 +1,8 @@
 module.exports = {buildPlayerIcons};
 
-function buildPlayerIcons(data) {
+function buildPlayerIcons(data) {  
   let radiantTeam = "";
   let direTeam = "";
-  console.log(data);
   function buildTeam(curPlayer){
     let playerString = ""
     playerString+=`<div class="player" id="${curPlayer.id}">
