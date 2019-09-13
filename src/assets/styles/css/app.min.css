@@ -171,7 +171,8 @@ a.nav-item {
   color: #dddddd;
   text-decoration: none;
   padding: 15px 30px;
-  text-align: center; }
+  text-align: center;
+  flex: 1 1 0; }
   a.nav-item:hover {
     color: #b4b4b4; }
 
@@ -188,7 +189,7 @@ a.nav-item.active {
   align-items: center; }
 
 @media screen and (max-height: 790px) {
-  .featured-outer + .currently-featured {
+  .featured-outer.currently-featured {
     opacity: 0;
     display: none; }
   .team {
@@ -202,19 +203,19 @@ a.nav-item.active {
     width: 100%; } }
 
 @media screen and (max-height: 790px) and (min-width: 1025px) and (min-height: 730px) {
-  .featured-outer + .currently-featured {
+  .featured-outer.currently-featured {
     opacity: 1;
     display: block; }
   .card-wrapper {
     align-items: flex-end; } }
 
 @media screen and (max-width: 900px) and (min-height: 791px) and (min-width: 740px) {
-  .featured-outer + .currently-featured {
+  .featured-outer.currently-featured {
     opacity: 1;
     display: block; } }
 
 @media screen and (max-width: 900px) and (min-height: 791px) and (max-width: 740px) {
-  .featured-outer + .currently-featured {
+  .featured-outer.currently-featured {
     opacity: 0;
     display: none; } }
 
@@ -478,3 +479,12 @@ a.nav-item.active {
 
 #game {
   text-align: center; }
+
+.coach-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  pointer-events: none; }

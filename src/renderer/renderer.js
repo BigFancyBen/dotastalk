@@ -90,6 +90,7 @@ function buildMatch(playerArray) {
   //"cache" the most recent match;
   if (playerArray == localStorage.getItem("lastMatch") && localStorage.getItem("lastMatchData")){
     document.getElementsByTagName("BODY")[0].innerHTML = localStorage.getItem("lastMatchData");
+    console.log("cached html");
     document.getElementById("reset").onclick = function(){resetGame()};
     clickToShowPlayer();
   } else {

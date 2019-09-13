@@ -197,6 +197,8 @@ a.nav-item {
   text-decoration: none;
   padding: 15px 30px;
   text-align: center;
+  flex: 1 1 0;
+  
   &:hover {
     color: #b4b4b4;
   }
@@ -219,7 +221,7 @@ a.nav-item.active {
 
 @media screen and (max-height: 790px) {
 
-  .featured-outer + .currently-featured {
+  .featured-outer.currently-featured {
     opacity: 0;
     display: none;
   }
@@ -238,7 +240,7 @@ a.nav-item.active {
   }
 
   @media screen and (min-width: 1025px) and (min-height: 730px) {
-    .featured-outer + .currently-featured {
+    .featured-outer.currently-featured {
       opacity: 1;
       display: block;
     }
@@ -252,13 +254,13 @@ a.nav-item.active {
 @media screen and (max-width: 900px) {
   @media screen and (min-height: 791px){
     @media screen and (min-width: 740px){
-      .featured-outer + .currently-featured {
+      .featured-outer.currently-featured {
         opacity: 1;
         display: block;
       }
     }
     @media screen and (max-width: 740px){
-      .featured-outer + .currently-featured {
+      .featured-outer.currently-featured {
         opacity: 0;
         display: none;
       }
