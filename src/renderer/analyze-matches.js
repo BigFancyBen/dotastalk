@@ -83,6 +83,9 @@ function analyzeMatches(matchData) {
   playerStats.wins = matchData.winCount;
   playerStats.losses = matchData.lossCount;
   playerStats.cardBg = cardBg;
+  playerStats.lanes = playerLanes;
+  playerStats.support = matchData.supportCount;
+  playerStats.core = matchData.coreCount;
   playerStats.heroes = topHeroes;
 
 

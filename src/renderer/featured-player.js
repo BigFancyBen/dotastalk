@@ -40,7 +40,7 @@ function buildFeaturedHtml(data) {
    </div>
    <div class="body-row">
      <div class="description">
-      
+      <div class="role-graph">${buildRoleGraph(data.playerStats.support, data.playerStats.core)}</div>
      </div>
    </div>
    <div class="wl-row">
@@ -52,4 +52,11 @@ function buildFeaturedHtml(data) {
   </div>`;
 
   return html;
+}
+
+function buildRoleGraph (numSup, numCore){
+  let total = numSup + numCore;
+  let roleGraphHtml = `<div style="height:${numSup/total*100}%" class="support-bar role"><p>Support</p></div>
+    <div style="height:${numCore/total*100}%" class="core-bar role"><p>Core</p></div>`;
+  return roleGraphHtml;
 }
