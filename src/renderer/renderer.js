@@ -35,7 +35,6 @@ ipc.on('selectPlayer', function(event){
 })
 
 ipc.on('pickLog', function(event){
-  console.log("dags");
   document.getElementById("game").innerHTML = `
   <div class="right-here">^ right here</div>
   <div class="log-wrapper">
