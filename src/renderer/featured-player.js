@@ -10,6 +10,8 @@ function buildFeaturedHtml(data) {
   //   graphHTML = `<div class="graphs">${graphRoles}<img class="graph-minimap" src="./assets/images/minimap_simple.png"></img><img src="${laneGraph}" class="lane-graph"></img></div>`;
   // }
   let heroSection = "";
+  let lanes = data.playerStats.lanes;
+  let total = lanes.off+lanes.mid+lanes.roam+lanes.safe;
   for (let i = 0; i < 3; i++){
     if(data.playerStats.heroes != undefined && data.playerStats.heroes[i]) {
     heroSection += `<div class="recent-hero">
@@ -42,10 +44,10 @@ function buildFeaturedHtml(data) {
      <div class="description">
       ${buildRoleGraph(data.playerStats.support, data.playerStats.core)}
       <ul>
-        <li>Safe: ${data.playerStats.lanes.safe}%</li>
-        <li>Off: ${data.playerStats.lanes.off}%</li>
-        <li>Mid: ${data.playerStats.lanes.mid}%</li>
-        <li>Roam: ${data.playerStats.lanes.roam}%</li>
+        <li>Safe: ${Math.round(data.playerStats.lanes.safe/total*100)}%</li>
+        <li>Off: ${Math.round(data.playerStats.lanes.off/total*100)}%</li>
+        <li>Mid: ${Math.round(data.playerStats.lanes.mid/total*100)}%</li>
+        <li>Roam: ${Math.round(data.playerStats.lanes.roam/total*100)}%</li>
       </ul>
      </div>
    </div>

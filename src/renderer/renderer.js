@@ -272,7 +272,7 @@ function getPlayer(playerID, slot, side) {
     } else if ((side && slot < 5) || (!side && slot >=5)) {
       var wlRequest = fetchIfNotCached(`https://api.opendota.com/api/players/${activePlayer}/wl?with_account_id=${playerID}`)
     }
-    var playerBehaviorRequest = fetchIfNotCached(`https://api.stratz.com/api/v1/player/${playerID}/behaviorChart?take=100`);
+    var playerBehaviorRequest = fetchIfNotCached(`https://api.stratz.com/api/v1/player/${playerID}/behaviorChart?take=250`);
     var playerRequest = fetchIfNotCached(`https://api.opendota.com/api/players/${playerID}`);
 
     return Promise.all([wlRequest, playerBehaviorRequest, playerRequest]).then(function(values){
