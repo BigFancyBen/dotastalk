@@ -3,7 +3,7 @@
 ### What is this?
 As soon as you accept a match you can see your opponents ranks. Additionally you can quickly access their opendota page to see your win+loss ratio vs them or to check their most picked heroes.
 
-![screenshot of it working](https://i.imgur.com/O6T4DmZ.png)
+![screenshot of it working](https://i.imgur.com/QBJ9rUk.png)
 
 ### Setup
 If you are looking for an easy install go to the releases tab on github there is a windows installer.
