@@ -7,7 +7,7 @@ const { getHeroByID } = require('./heroes.js');
 const { analyzeMatches } = require('./analyze-matches.js');
 const { buildPlayerIcons } = require('./player-icons.js');
 const { pickSides } = require('./pick-sides.js');
-
+const { pickCurrentPlayer } = require('./pick-current-player.js');
 
 const RANKS = ["Herald", "Guardian", "Crusader", "Archon", "Legend", "Ancient", "Divine"];
 const NO_AVATAR_IMG = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg";
@@ -18,8 +18,7 @@ window.onload = function(){
 };
 
 function resetGame(){
-  localStorage.removeItem("lastMatch");
-  localStorage.removeItem("lastMatchData");
+  sessionStorage.clear();
   location.reload();
 }
 
@@ -32,6 +31,19 @@ ipc.on('updatedMatches', function (event, playerArray) {
 })
 
 ipc.on('selectPlayer', function(event){
+  clickToSelectPlayer();
+})
+
+ipc.on('pickLog', function(event){
+  console.log("dags");
+  document.getElementById("game").innerHTML = `
+  <div class="right-here">^ right here</div>
+  <div class="log-wrapper">
+    <h1>Select your server_log.txt file from your dota folder.</h1>
+  </div>`;
+})
+
+function clickToSelectPlayer(){
   var players = document.getElementsByClassName("player");
   for (var i = 0; i < players.length; i++) {
     players[i].addEventListener('click', selectUser, false);
@@ -39,11 +51,13 @@ ipc.on('selectPlayer', function(event){
     players[i].removeEventListener('click', pickableTeams, false);
     players[i].classList.add("fade-out");
   }
-})
+}
 
 function selectUser(){
   ipc.send('updatePlayer', this.id);
+  localStorage.setItem("activePlayer", this.id);
   clickToShowPlayer();
+  location.reload();
 }
 
 function showFeature(){
@@ -85,16 +99,24 @@ function clickToShowPlayer() {
 function buildMatch(playerArray) {
   //make api calls to get data for all players
   let match = [];
-  let side = playerArray.find(x => x.id == localStorage.getItem("activePlayer")).slot>=5 ? false : true;
-
-  //"cache" the most recent match;
-  if (playerArray == localStorage.getItem("lastMatch") && localStorage.getItem("lastMatchData")){
-    document.getElementsByTagName("BODY")[0].innerHTML = localStorage.getItem("lastMatchData");
-    console.log("cached html");
-    document.getElementById("reset").onclick = function(){resetGame()};
-    clickToShowPlayer();
-  } else {
-    localStorage.setItem("lastMatch" , playerArray);
+  let curPlayer = localStorage.getItem("activePlayer");
+  let curPlayerObj = playerArray.find(x => x.id == curPlayer);
+  let side = true;
+  if (curPlayer == null) {
+    //pull up view for picking active
+    let playerList = [];
+    for (value of playerArray){
+      getPlayerOnly(value.id).then((data) => {
+        playerList.push(data);
+        if (playerList.length == playerArray.length) {
+          var html = pickCurrentPlayer(playerList);
+          document.getElementById("game").innerHTML = html;
+          clickToSelectPlayer();
+        }
+      })
+    }
+  } else if (curPlayerObj) {
+    side = curPlayerObj.slot>=5 ? false : true;
     for (var value of playerArray) {
       getPlayer(value.id, value.slot, side).then((data) => {
         match.push(data);
@@ -106,7 +128,6 @@ function buildMatch(playerArray) {
           } else {
             var html = buildPlayerIcons(match.sort((a, b) => a.slot - b.slot));
             document.getElementById("game").innerHTML = html;
-            localStorage.setItem("lastMatchData" , document.getElementsByTagName("BODY")[0].innerHTML);
             clickToShowPlayer();
           }
         }
@@ -190,39 +211,6 @@ function rebuildTeam(){
   buildMatch(playerIdArray);
 }
 
-function getPlayer(playerID, slot, side) {
-  let activePlayer = localStorage.getItem("activePlayer");
-  if(activePlayer != "" && playerID != undefined) {
-    if((side && slot >= 5) || (!side && slot < 5)){
-      var apiRequest1 = fetch(`https://api.opendota.com/api/players/${activePlayer}/wl?against_account_id=${playerID}`).then(function(response){
-          return response.json()
-      });
-    } else if ((side && slot < 5) || (!side && slot >=5)) {
-      var apiRequest1 = fetch(`https://api.opendota.com/api/players/${activePlayer}/wl?with_account_id=${playerID}`).then(function(response){
-          return response.json()
-      });
-    }
-    var apiRequest2 = fetch(`https://api.stratz.com/api/v1/player/${playerID}/behaviorChart?take=100`).then(function(response){
-        if( response.ok){
-          return response.json()
-        } else {
-          return "";
-        }
-    });
-    var apiRequest3 = fetch(`https://api.opendota.com/api/players/${playerID}`).then(function(response){
-        return response.json()
-    });
-
-    return Promise.all([apiRequest1,apiRequest2,apiRequest3]).then(function(values){
-      namedObj = {};
-      namedObj["wl"] = values[0]
-      namedObj["matches"] = values[1]
-      namedObj["player"] = values[2]
-      return buildPlayer(namedObj, slot);
-    });
-  }
-}
-
 function buildPlayer(playerInfo, slotNum){
   let rankStuff;
   let playerData = {};
@@ -274,4 +262,66 @@ function getRank(rankNum){
   }
 
   return rank;
+}
+
+
+function getPlayer(playerID, slot, side) {
+  let activePlayer = localStorage.getItem("activePlayer");
+  if(activePlayer != "" && playerID != undefined) {
+    if((side && slot >= 5) || (!side && slot < 5)){
+     var wlRequest = fetchIfNotCached(`https://api.opendota.com/api/players/${activePlayer}/wl?against_account_id=${playerID}`);
+    } else if ((side && slot < 5) || (!side && slot >=5)) {
+      var wlRequest = fetchIfNotCached(`https://api.opendota.com/api/players/${activePlayer}/wl?with_account_id=${playerID}`)
+    }
+    var playerBehaviorRequest = fetchIfNotCached(`https://api.stratz.com/api/v1/player/${playerID}/behaviorChart?take=100`);
+    var playerRequest = fetchIfNotCached(`https://api.opendota.com/api/players/${playerID}`);
+
+    return Promise.all([wlRequest, playerBehaviorRequest, playerRequest]).then(function(values){
+      namedObj = {};
+      namedObj["wl"] = values[0];
+      namedObj["matches"] = values[1];
+      namedObj["player"] = values[2];
+      return buildPlayer(namedObj, slot);
+    });
+  }
+}
+
+function getPlayerOnly(playerID){
+  return Promise.all([fetchIfNotCached(`https://api.opendota.com/api/players/${playerID}`)]).then(function(values){
+    return values[0];
+  });
+}
+
+function fetchIfNotCached (requestString){
+  if(checkSessionStorage(requestString)){
+    console.log("in cache");
+    return JSON.parse(sessionStorage.getItem(requestString)).data;
+  } else {
+    return fetch(requestString).then(function(response){
+      if( response.ok){
+        return response.json()
+      } else {
+        return "error";
+      }
+    }).then(function(responseData) {
+      let cacheObj = {data:responseData, time:Date.now()};
+      sessionStorage.setItem(requestString, JSON.stringify(cacheObj));
+      return responseData;
+    });
+  }
+}
+
+function checkSessionStorage(apiString) {
+  if (sessionStorage.getItem(apiString)){
+    let cachedTime = JSON.parse(sessionStorage.getItem(apiString)).time;
+    const fiveMinutes = 5*60*1000;
+    if (((Date.now()) - cachedTime) < fiveMinutes){
+      return true;
+    } else {
+      console.log("old");
+      return false;
+    }
+  } else {
+    return false;
+  }
 }

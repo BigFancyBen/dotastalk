@@ -17,11 +17,11 @@ app.on('ready', () => {
     show: false,
     resizable: true,
     width: 850,
-    'minWidth': 475,
+    'minWidth': 500,
     'minHeight': 600,
     nodeIntegration: true,
     unsafeEval: true,
-    height: 900,
+    height: 925,
     icon: path.join(__dirname, 'assets/images/icon_64x64.png')
   });
   mainWindow.loadURL(path.join('file://', __dirname, 'index.html'));
@@ -49,6 +49,8 @@ app.on('ready', () => {
     });
     if(typeof mainWindow.serverLog != "undefined"){
       event.sender.send('updatedMatches', parseLog(mainWindow.serverLog.path));
+    } else {
+      mainWindow.webContents.send('pickLog');
     }
   })
 

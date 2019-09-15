@@ -8,7 +8,9 @@ module.exports = {setStorage};
 
 function setStorage(mainWindow) {
   storage.get('serverLog', function(error, data) {
-    if (error){ throw error;}
+    if (error){ 
+      throw error;
+    }
     if(data.hasOwnProperty("path")){
       mainWindow.serverLog = {
         'path': data.path[0]

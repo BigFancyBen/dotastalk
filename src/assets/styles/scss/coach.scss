@@ -1,4 +1,4 @@
-.coach-wrapper {
+.coach-wrapper, .log-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,6 +8,16 @@
   pointer-events: none;
 
   h1 {
-
+    max-width: 80%;
   }
+}
+
+.right-here {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  padding: 10px;
+  background-color: black;
+  z-index: 10;
 }

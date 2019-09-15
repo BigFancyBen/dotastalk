@@ -56,3 +56,11 @@
 #game {
   text-align: center;
 }
+
+.pick-sides.pick-current {
+  .team {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
