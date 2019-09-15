@@ -175,9 +175,19 @@ $cardBorder: 1px solid white;
     width: 100%;
     height: 115px;
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 
+    ul {
+      list-style: none;
+      margin: 0;
+      margin-left: 20px;
+      font-size: 12px;
+      padding: 5px;
+      border-radius: 5px;
+      background-color: rgba(0,0,0,.5);
+    }
     p {
       margin: 0 0 0 10px;
     }

@@ -41,6 +41,12 @@ function buildFeaturedHtml(data) {
    <div class="body-row">
      <div class="description">
       ${buildRoleGraph(data.playerStats.support, data.playerStats.core)}
+      <ul>
+        <li>Safe: ${data.playerStats.lanes.safe}%</li>
+        <li>Off: ${data.playerStats.lanes.off}%</li>
+        <li>Mid: ${data.playerStats.lanes.mid}%</li>
+        <li>Roam: ${data.playerStats.lanes.roam}%</li>
+      </ul>
      </div>
    </div>
    <div class="wl-row">
