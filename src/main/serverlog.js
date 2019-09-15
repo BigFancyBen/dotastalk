@@ -8,7 +8,7 @@ module.exports = {showOpenDialog};
 
 function showOpenDialog(browserWindow) {
   dialog.showOpenDialog(browserWindow, {
-    defaultPath: app.getPath('home'),
+    defaultPath: `Program Files (x86)/Steam/steamapps/common/dota 2 beta/game/dota/server_log.txt`,
     filters: [ {name: 'Text Files', extensions: ['txt']} ] //"Text Files" displays on Windows in lower right, but not on Mac
   }, (filepaths) => {
     if(filepaths) {
