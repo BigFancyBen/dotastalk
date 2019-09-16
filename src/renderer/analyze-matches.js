@@ -73,6 +73,11 @@ function analyzeMatches(matchData) {
     playerType += "Support ";
     cardBg = "card-bg-green.jpg";
   }
+  
+  if(Object.keys(playerLanes).length == 0 && topHeroes.length == 0){
+    playerType +="Unknown";
+    cardBg = "card-bg-unknown.jpg";
+  }
 
   if(playerType == ""){
     playerType +="Flex";
