@@ -17,8 +17,10 @@ function analyzeMatches(matchData) {
 
   return playerStats;
  }
-
- let heroArray = (matchData.heroes.sort((a, b) => b.matchCount - a.matchCount)).slice(0, 3);
+ let heroArray = [];
+ if(matchData.heroes) {
+  heroArray = (matchData.heroes.sort((a, b) => b.matchCount - a.matchCount)).slice(0, 3);
+ }
  let topHeroes = [];
 
  heroArray.forEach(function(hero){
@@ -40,10 +42,12 @@ function analyzeMatches(matchData) {
   }
 
   let playerLanes = {};
-  playerLanes.roam = checkLanes(matchData.lanes.find(x => x.lane == 0)|| 0);
-  playerLanes.safe = checkLanes(matchData.lanes.find(x => x.lane == 1)|| 0);
-  playerLanes.mid = checkLanes(matchData.lanes.find(x => x.lane == 2)|| 0);
-  playerLanes.off = checkLanes(matchData.lanes.find(x => x.lane == 3)|| 0);
+  if(matchData.lanes){
+    playerLanes.roam = checkLanes(matchData.lanes.find(x => x.lane == 0)|| 0);
+    playerLanes.safe = checkLanes(matchData.lanes.find(x => x.lane == 1)|| 0);
+    playerLanes.mid = checkLanes(matchData.lanes.find(x => x.lane == 2)|| 0);
+    playerLanes.off = checkLanes(matchData.lanes.find(x => x.lane == 3)|| 0);
+  }
   
   let playerType = "";
   let cardBg= "card-bg-yellow.jpg";
@@ -74,14 +78,16 @@ function analyzeMatches(matchData) {
     playerType +="Flex";
     cardBg = "card-bg-blue.jpg";
   }
-  if((topHeroes[0].wins + topHeroes[0].losses)/matchData.matchCount > .4){
-    playerType += topHeroes[0].heroData.name + " Main";
+  if(topHeroes[0]){
+    if((topHeroes[0].wins + topHeroes[0].losses)/matchData.matchCount > .4){
+      playerType += topHeroes[0].heroData.name + " Main";
+    }
   }
 
   playerStats = {};
   playerStats.ptype = playerType;
-  playerStats.wins = matchData.winCount;
-  playerStats.losses = matchData.lossCount;
+  playerStats.wins = matchData.winCount || "??";
+  playerStats.losses = matchData.lossCount || "??";
   playerStats.cardBg = cardBg;
   playerStats.lanes = playerLanes;
   playerStats.support = matchData.supportCount;
