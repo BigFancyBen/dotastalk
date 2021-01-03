@@ -12,13 +12,26 @@
       <a class="nav-item active" href="./coach.html">Coach</a>
     </div>
     <div class="coach-wrapper">
-      <h1>Nothing to see here yet.</h1>
+      <div class="clock"></div>
+      <div class="bounty-wrapper">
+        <img class="bounty-img" src="./assets/images/bountyrune.png" alt="">
+        <div class="bounty-time"></div>
+        <div class="pulsing-bg"></div>
+      </div>
+      <div class="rosh-wrapper">
+        <img src="./assets/images/aegis.png" alt="" class="aegis-img">
+        <div class="times-wrapper">
+          <div class="aegis-expire"></div>
+          <div class="aegis-min"></div>
+          <div class="aegis-max"></div>
+        </div>
+        <div class="pulsing-bg"></div>
+      </div>
     </div>
     <!-- <div class="loading-animation"><div></div><div></div><div></div></div> -->
     
   <script>
-    // new front end logic required here.
-    // require('./renderer/renderer.js');
+    require('./renderer/coach.js');
   </script>
   </body>
 </html>

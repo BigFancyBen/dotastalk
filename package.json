@@ -2,7 +2,7 @@
   "name": "dotastalk",
   "productName": "DotaStalk",
   "author": "",
-  "version": "1.0.9",
+  "version": "1.0.11",
   "description": "",
   "main": "src/main.js",
   "scripts": {
@@ -15,6 +15,7 @@
   "dependencies": {
     "electron-json-storage": "^4.0.2",
     "find-in-files": "^0.4.0",
+    "dota2-gsi": "^1.0.2",
     "node-watch": "^0.5.6"
   },
   "build": {

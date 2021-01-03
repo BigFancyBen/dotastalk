@@ -1,5 +1,4 @@
 var electron = require('electron');
-const remote = require('electron').remote;
 const ipc = require('electron').ipcRenderer;
 const shell = require('electron').shell;
 const { buildFeaturedHtml } = require('./featured-player.js');
@@ -8,6 +7,7 @@ const { analyzeMatches } = require('./analyze-matches.js');
 const { buildPlayerIcons } = require('./player-icons.js');
 const { pickSides } = require('./pick-sides.js');
 const { pickCurrentPlayer } = require('./pick-current-player.js');
+const { fetchIfNotCached } = require('./fetch-cache.js');
 
 const RANKS = ["Herald", "Guardian", "Crusader", "Archon", "Legend", "Ancient", "Divine"];
 const NO_AVATAR_IMG = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg";
@@ -291,36 +291,4 @@ function getPlayerOnly(playerID){
   });
 }
 
-function fetchIfNotCached (requestString){
-  if(checkSessionStorage(requestString)){
-    console.log("in cache");
-    return JSON.parse(sessionStorage.getItem(requestString)).data;
-  } else {
-    return fetch(requestString).then(function(response){
-      if( response.ok){
-        return response.json()
-      } else {
-        return "error";
-      }
-    }).then(function(responseData) {
-      let cacheObj = {data:responseData, time:Date.now()};
-      sessionStorage.setItem(requestString, JSON.stringify(cacheObj));
-      return responseData;
-    });
-  }
-}
 
-function checkSessionStorage(apiString) {
-  if (sessionStorage.getItem(apiString)){
-    let cachedTime = JSON.parse(sessionStorage.getItem(apiString)).time;
-    const fiveMinutes = 5*60*1000;
-    if (((Date.now()) - cachedTime) < fiveMinutes){
-      return true;
-    } else {
-      console.log("old");
-      return false;
-    }
-  } else {
-    return false;
-  }
-}
