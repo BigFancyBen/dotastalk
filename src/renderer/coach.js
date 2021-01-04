@@ -4,7 +4,7 @@ const ipc = require('electron').ipcRenderer;
 const clock = document.querySelector(".clock");
 const bountyWrapper = document.querySelector(".bounty-wrapper");
 const bountyTime = bountyWrapper.querySelector(".bounty-time")
-var bkbTiming = 10;
+var magicImmune = false;
 const audioVolume = .2;
 var currentlySmoked = false;
 var bountySoundPlayed = false;
@@ -13,18 +13,18 @@ const roshWrapper = document.querySelector(".rosh-wrapper");
 const aegisExpire = roshWrapper.querySelector(".aegis-expire");
 const aegisMin = roshWrapper.querySelector(".aegis-min");
 const aegisMax = roshWrapper.querySelector(".aegis-max");
+var starAudio = new Audio('https://www.myinstants.com/media/sounds/super-mario-bros-nes-music-star-theme-cut-mp3.mp3');
 
 //on page load get the hero object
 
-ipc.on('bkbOn', function(event, args){
-    var audio = new Audio('https://www.myinstants.com/media/sounds/super-mario-bros-nes-music-star-theme-cut-mp3.mp3');
-    audio.volume = audioVolume;
-    audio.play();
-    setTimeout(function(){audio.pause()}, bkbTiming*1000);
-    if(bkbTiming > 5) {
-        bkbTiming--;
+ipc.on('bkbOn', function(event, isBkbd){
+    if (isBkbd){
+        console.log(starAudio);
+        starAudio.volume = audioVolume;
+        starAudio.play();
+    } else {
+        starAudio.pause();
     }
-    console.log(bkbTiming);
 });
 
 ipc.on('gameTime', function(event, args){

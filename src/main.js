@@ -84,9 +84,7 @@ app.on('ready', () => {
       //     if (can_cast) console.log("Ability0 off cooldown!");
       // });
       client.on('hero:magicimmune', function(is_bkbd) {
-          if (is_bkbd){
-            mainWindow.webContents.send('bkbOn',"test");
-          }
+        mainWindow.webContents.send('bkbOn',is_bkbd);
       });
       client.on('map:clock_time', function(gameTime) {
         mainWindow.webContents.send('gameTime', gameTime);
