@@ -1,5 +1,14 @@
 html, body {
-  background-color: transparent; }
+  background-color: transparent;
+  user-select: none; }
+
+#minimize svg {
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  fill: white; }
 
 .pre-game {
   display: flex;
@@ -15,7 +24,10 @@ html, body {
     align-items: center;
     position: relative;
     flex-direction: column;
-    margin-right: 16px; }
+    margin-right: 16px;
+    cursor: pointer; }
+    .pre-game__player:hover {
+      box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.3), 0 12px 17px 2px rgba(0, 0, 0, 0.21), 0 5px 22px 4px rgba(0, 0, 0, 0.18); }
   .pre-game #radiant {
     margin-left: 207px; }
   .pre-game #dire {
@@ -27,7 +39,8 @@ html, body {
     height: 100%;
     object-fit: cover;
     position: absolute;
-    transform: skew(10deg); }
+    transform: skew(10deg);
+    pointer-events: none; }
   .pre-game__rank {
     z-index: 5;
     display: flex;
@@ -40,19 +53,23 @@ html, body {
     height: 100%;
     width: 100%;
     object-fit: cover;
-    opacity: 70%;
-    margin-top: -2px; }
+    opacity: 90%;
+    margin-top: -2px;
+    pointer-events: none; }
   .pre-game__player-rank-stars {
     width: 80%;
     margin: 0 auto;
-    margin-top: -13px; }
+    margin-top: -13px;
+    z-index: 10;
+    pointer-events: none; }
   .pre-game__player-rank {
     color: white;
     top: -13px;
     position: relative;
     margin: 0;
     font-size: 14px;
-    font-family: roboto; }
+    font-family: roboto;
+    pointer-events: none; }
   .pre-game__player-matches {
     position: absolute;
     bottom: -50px;
@@ -61,8 +78,19 @@ html, body {
     font-size: 12px;
     font-family: Roboto; }
 
-.player-card {
+.featured-outer {
+  opacity: 0;
   display: none; }
+
+.currently-featured {
+  opacity: 1;
+  display: block; }
+
+.card-wrapper {
+  position: absolute;
+  left: 817px;
+  top: 80px;
+  z-index: 0; }
 
 .player-card {
   cursor: pointer;
@@ -76,13 +104,14 @@ html, body {
   border: 8px black solid;
   background-color: #6B6E70;
   transition: opacity .5s ease-in-out, box-shadow .2s;
-  pointer-events: auto; }
+  pointer-events: auto;
+  font-family: 'Roboto'; }
   .player-card:hover {
     box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.3), 0 12px 17px 2px rgba(0, 0, 0, 0.21), 0 5px 22px 4px rgba(0, 0, 0, 0.18); }
   .player-card .name-row {
     width: 100%;
     height: 30px;
-    border: 1px solid white;
+    border: 1px solid #777;
     border-radius: 5px;
     box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
     background-image: url("../../images/black-paper.png");
@@ -104,7 +133,7 @@ html, body {
   .player-card .hero-win-loss {
     position: absolute;
     width: 100%;
-    border: 1px solid white;
+    border: 1px solid #777;
     background-color: rgba(0, 0, 0, 0.5);
     height: 100%;
     display: flex;
@@ -117,7 +146,7 @@ html, body {
     justify-content: space-evenly;
     flex: 1; }
   .player-card .card-img {
-    border: 1px solid white;
+    border: 1px solid #777;
     width: 100%;
     height: 155px;
     margin-bottom: 5px;
@@ -140,7 +169,7 @@ html, body {
   .player-card .info-row {
     width: 100%;
     height: 30px;
-    border: 1px solid white;
+    border: 1px solid #777;
     border-radius: 5px;
     background-image: url("../../images/black-paper.png");
     margin-bottom: 5px;
@@ -179,7 +208,7 @@ html, body {
     font-weight: bolder;
     text-shadow: 1px 1px rgba(0, 0, 0, 0.3); }
     .player-card .wl-row .win-loss {
-      margin-top: -1px; }
+      margin-top: 1px; }
   .player-card .wl-row .wins {
     display: inline-block;
     margin-left: 5px;
@@ -190,7 +219,7 @@ html, body {
     margin-left: -3px;
     margin-right: 3px; }
   .player-card .description {
-    border: 1px solid white;
+    border: 1px solid #777;
     position: relative;
     background-image: url("../../images/black-paper.png");
     box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
@@ -208,7 +237,8 @@ html, body {
       font-size: 12px;
       padding: 5px;
       border-radius: 5px;
-      background-color: rgba(0, 0, 0, 0.5); }
+      background-color: rgba(0, 0, 0, 0.2);
+      color: white; }
     .player-card .description p {
       margin: 0 0 0 10px; }
   .player-card .win {

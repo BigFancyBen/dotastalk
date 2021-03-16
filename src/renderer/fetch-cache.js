@@ -22,8 +22,8 @@ function fetchIfNotCached (requestString){
   function checkSessionStorage(apiString) {
     if (sessionStorage.getItem(apiString)){
       let cachedTime = JSON.parse(sessionStorage.getItem(apiString)).time;
-      const fiveMinutes = 5*60*1000;
-      if (((Date.now()) - cachedTime) < fiveMinutes){
+      const tenMinutes = 10*60*1000;
+      if (((Date.now()) - cachedTime) < tenMinutes){
         return true;
       } else {
         console.log("old");

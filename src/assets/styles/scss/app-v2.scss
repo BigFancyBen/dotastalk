@@ -1,7 +1,15 @@
 html, body {
   background-color: transparent;
+  user-select: none;
 }
-
+#minimize svg {
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  fill: white;
+}
 .pre-game {
   display: flex;
   justify-content: space-between;
@@ -19,6 +27,11 @@ html, body {
     position: relative;
     flex-direction: column;
     margin-right: 16px;
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 7px 8px -4px rgba(0,0,0,.3), 0 12px 17px 2px rgba(0,0,0,.21), 0 5px 22px 4px rgba(0,0,0,.18);
+    }
   }
   #radiant {
     margin-left: 207px;
@@ -38,6 +51,7 @@ html, body {
     object-fit: cover;
     position: absolute;
     transform: skew(10deg);
+    pointer-events: none;
   }
 
   &__rank {
@@ -54,13 +68,16 @@ html, body {
     height: 100%;
     width: 100%;
     object-fit: cover;
-    opacity: 70%;
+    opacity: 90%;
     margin-top: -2px;
+    pointer-events: none;
   }
   &__player-rank-stars {
     width: 80%;
     margin: 0 auto;
     margin-top: -13px;
+    z-index: 10;
+    pointer-events: none;
   }
 
   &__player-rank {
@@ -70,6 +87,7 @@ html, body {
     margin: 0;
     font-size: 14px;
     font-family: roboto;
+    pointer-events: none;
   }
 
   &__player-matches {
@@ -80,8 +98,4 @@ html, body {
     font-size: 12px;
     font-family: Roboto;
   }
-}
-
-.player-card {
-  display: none;
 }

@@ -14,7 +14,7 @@ const NO_AVATAR_IMG = "https://steamcdn-a.akamaihd.net/steamcommunity/public/ima
 
 window.onload = function(){
   ipc.send('newLog');
-  document.getElementById("reset").onclick = function(){resetGame()};
+  document.getElementById("minimize").onclick = function(){ipc.send('minimize')()};
 };
 
 function resetGame(){
@@ -63,7 +63,12 @@ function showFeature(){
   playerID = this.id;
   var players = document.getElementsByClassName("featured-outer");
   for (var i = 0; i < players.length; i++) {
-    players[i].classList.remove("currently-featured");
+    if(players[i].classList.contains("currently-featured")){
+      players[i].classList.remove("currently-featured");
+      if (this.id == players[i].id.substr(16)){
+        return;
+      }
+    }
   }
   curCard = "featured-player-" + playerID;
   cur = document.getElementById(curCard);
@@ -86,7 +91,7 @@ function buildPlayerCard (data) {
 }
 
 function clickToShowPlayer() {
-  var players = document.getElementsByClassName("player");
+  var players = document.getElementsByClassName("pre-game__player");
   for (var i = 0; i < players.length; i++) {
     players[i].addEventListener("click", showFeature);
     players[i].removeEventListener('click', selectUser, false);
@@ -255,7 +260,7 @@ function getRank(rankNum){
   rank[0] = RANKS[tier-1] + " " + stars;
   rank[1] = "rank_icon_" + tier + ".svg";
   if (stars != 0) {
-    rank[2] = "rank_star_" + stars + ".svg";
+    rank[2] = "rank_star_" + stars + ".png";
   } else {
     rank[2] = 0;
   }

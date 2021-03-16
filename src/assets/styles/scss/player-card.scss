@@ -1,9 +1,28 @@
 //$cardBorder: 2px solid #6B6E70;
-$cardBorder: 1px solid white;
+$cardBorder: 1px solid #777;
 
 @mixin card-border-radius {
     border-radius: 5px;
 }
+
+.featured-outer {
+  opacity: 0;
+  display: none;
+}
+
+.currently-featured {
+  opacity: 1;
+  display: block;
+}
+
+.card-wrapper{
+  position: absolute;
+  left: 817px;
+  top: 80px;
+  z-index: 0;
+}
+
+
 .player-card{
   cursor: pointer;
   width: 250px;
@@ -17,6 +36,7 @@ $cardBorder: 1px solid white;
   background-color: #6B6E70;
   transition: opacity .5s ease-in-out, box-shadow .2s;
   pointer-events: auto;
+  font-family: 'Roboto';
 
   &:hover {
     box-shadow: 0 7px 8px -4px rgba(0,0,0,.3), 0 12px 17px 2px rgba(0,0,0,.21), 0 5px 22px 4px rgba(0,0,0,.18);
@@ -149,7 +169,7 @@ $cardBorder: 1px solid white;
     text-shadow: 1px 1px rgba(0,0,0,.3);
     
     .win-loss{
-        margin-top: -1px;
+        margin-top: 1px;
     }
   }
 
@@ -186,7 +206,8 @@ $cardBorder: 1px solid white;
       font-size: 12px;
       padding: 5px;
       border-radius: 5px;
-      background-color: rgba(0,0,0,.5);
+      background-color: rgba(0,0,0,.2);
+      color: white;
     }
     p {
       margin: 0 0 0 10px;

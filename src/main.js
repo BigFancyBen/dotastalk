@@ -1,13 +1,14 @@
-const { app, BrowserWindow } = require('electron');
-const path = require ('path');
+const { app, BrowserWindow} = require('electron');
 const electron = require('electron');
+const path = require ('path');
 const { setMainMenu } = require('./main/main-menu');
+const { setTray } = require('./main/tray');
 const { parseLog } = require('./main/logwatch');
 const { setStorage } = require('./main/setStorage');
 //require('electron-debug')({showDevTools: true});
 const storage = require('electron-json-storage');
 const ipc = electron.ipcMain;
-var watch = require('node-watch');
+var watch = require('node-watch');``
 var d2gsi = require('dota2-gsi');
 var server = new d2gsi({tokens:"dotastalk"});
 
@@ -25,6 +26,7 @@ app.on('ready', () => {
     frame: false,
     transparent: true,
     resizable: false,
+    alwaysOnTop: true,
     width: 1920,
     x: 0,
     y: 0,
@@ -35,6 +37,7 @@ app.on('ready', () => {
   });
   mainWindow.loadURL(path.join('file://', __dirname, 'index.html'));
   setMainMenu(mainWindow);
+  setTray(mainWindow);
   setStorage(mainWindow);
   
   mainWindow.on('ready-to-show', () => {
@@ -75,6 +78,15 @@ app.on('ready', () => {
     mainWindow.webContents.send('currentPlayer', arg);
   })
 
+  ipc.on('minimize', () => {
+    mainWindow.hide();
+  })
+
+  mainWindow.on('minimize',function(event){
+    event.preventDefault();
+    mainWindow.hide();
+  });
+
   server.events.on('newclient', function(client) {
       console.log("New client connection, IP address: " + client.ip);
       if (client.auth && client.auth.token) {
@@ -85,6 +97,7 @@ app.on('ready', () => {
   
       client.on('player:activity', function(activity) {
           if (activity == 'playing') console.log("Game started!");
+          mainWindow.hide();
       });
       client.on('hero:level', function(level) {
           //console.log("Now level " + level);
