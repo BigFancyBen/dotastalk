@@ -6,7 +6,7 @@
   "description": "",
   "main": "src/main.js",
   "scripts": {
-    "start": "electron src/main.js",
+    "start": "electron src/main.js --enable-transparent-visuals",
     "package": "build src/",
     "watch-sass": "node-sass --watch src/assets/styles/scss/main.scss src/assets/styles/css/app.min.css"
   },

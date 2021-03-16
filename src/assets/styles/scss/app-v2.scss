@@ -1,0 +1,87 @@
+html, body {
+  background-color: transparent;
+}
+
+.pre-game {
+  display: flex;
+  justify-content: space-between;
+
+  &__team {
+    display: flex;
+    flex-direction: row;
+  }
+  &__player {
+    width: 108px;
+    height: 66px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-direction: column;
+    margin-right: 16px;
+  }
+  #radiant {
+    margin-left: 207px;
+  }
+  #dire {
+    margin-right: 191px;
+
+    .pre-game__player-avatar {
+      transform: skew(-10deg);
+    }
+  }
+  
+
+  &__player-avatar{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    transform: skew(10deg);
+  }
+
+  &__rank {
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__player-rank-icon {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    opacity: 70%;
+    margin-top: -2px;
+  }
+  &__player-rank-stars {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: -13px;
+  }
+
+  &__player-rank {
+    color: white;
+    top: -13px;
+    position: relative;
+    margin: 0;
+    font-size: 14px;
+    font-family: roboto;
+  }
+
+  &__player-matches {
+    position: absolute;
+    bottom: -50px;
+    color: white;
+    font-weight: 800;
+    font-size: 12px;
+    font-family: Roboto;
+  }
+}
+
+.player-card {
+  display: none;
+}

@@ -17,14 +17,20 @@ app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
 
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: true,
+      unsafeEval: true,
+    },
     show: false,
-    resizable: true,
-    width: 850,
+    frame: false,
+    transparent: true,
+    resizable: false,
+    width: 1920,
+    x: 0,
+    y: 0,
     'minWidth': 500,
     'minHeight': 600,
-    nodeIntegration: true,
-    unsafeEval: true,
-    height: 925,
+    height: 200,
     icon: path.join(__dirname, 'assets/images/icon_64x64.png')
   });
   mainWindow.loadURL(path.join('file://', __dirname, 'index.html'));
@@ -38,6 +44,10 @@ app.on('ready', () => {
         mainWindow.webContents.send('currentPlayer', data.player);
       }
     });
+    mainWindow.webContents.openDevTools({mode:'undocked'});
+    //mainWindow.maximize();
+    // mainWindow.setIgnoreMouseEvents(true);
+    // mainWindow.setFocusable(false);
     mainWindow.show();
   });
   mainWindow.on('closed', () => {
@@ -93,7 +103,7 @@ app.on('ready', () => {
         mainWindow.webContents.send('smokedUp', smoked);
       });
       ipc.on('getGame', function (event, arg){
-        console.log(client.gamestate.hero);
+        console.log(client.gamestate);
       })
     
 

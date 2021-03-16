@@ -240,7 +240,7 @@ function buildPlayer(playerInfo, slotNum){
       if (playerObj.mmr_estimate != undefined && playerObj.mmr_estimate.estimate != undefined  ){
         playerData.rank = "~" + playerObj.mmr_estimate.estimate +  " MMR";
       }
-      playerData.rank_icon = "./assets/images/rank_icons/rank_icon_0.png";
+      playerData.rank_icon = "./assets/images/rank_icons/rank_icon_0.svg";
     }
 
     playerData.side = (slotNum < 5 ) ? true : false;
@@ -253,9 +253,9 @@ function getRank(rankNum){
   stars = parseInt(rankNum.toString().charAt(1));
   let rank = [];
   rank[0] = RANKS[tier-1] + " " + stars;
-  rank[1] = "rank_icon_" + tier + ".png";
+  rank[1] = "rank_icon_" + tier + ".svg";
   if (stars != 0) {
-    rank[2] = "rank_star_" + stars + ".png";
+    rank[2] = "rank_star_" + stars + ".svg";
   } else {
     rank[2] = 0;
   }
