@@ -25,7 +25,7 @@
     "electron": "^4.2.12",
     "electron-builder": "^20.44.4",
     "electron-debug": "^1.5.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "sass": "^1.32.0"
   }
 }
