@@ -22,7 +22,7 @@
     "appId": "com.BigFancyBen.DotaStalk"
   },
   "devDependencies": {
-    "electron": "^4.2.12",
+    "electron": "^15.5.5",
     "electron-builder": "^20.44.4",
     "electron-debug": "^1.5.0",
     "node-sass": "^4.14.1",
