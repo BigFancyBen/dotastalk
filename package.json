@@ -8,7 +8,7 @@
   "scripts": {
     "start": "electron src/main.js",
     "package": "build src/",
-    "watch-sass": "node-sass --watch src/assets/styles/scss/main.scss src/assets/styles/css/app.min.css"
+    "watch-sass": "sass --watch src/assets/styles/scss/main.scss:src/assets/styles/css/app.min.css"
   },
   "keywords": [],
   "license": "ISC",
@@ -22,10 +22,9 @@
     "appId": "com.BigFancyBen.DotaStalk"
   },
   "devDependencies": {
-    "electron": "^4.2.12",
-    "electron-builder": "^20.44.4",
-    "electron-debug": "^1.5.0",
-    "node-sass": "^4.14.1",
-    "sass": "^1.32.0"
+    "electron": "^35.7.5",
+    "electron-builder": "^26.0.0",
+    "electron-debug": "^4.0.0",
+    "sass": "^1.77.0"
   }
 }
