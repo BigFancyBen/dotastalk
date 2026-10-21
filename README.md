@@ -1,5 +1,9 @@
 # dotastalk
 
+> [!WARNING]
+> **This project is no longer maintained and no longer works.**
+> Valve removed `server_log.txt` from Dota 2, which was the only source dotastalk used to find the players in your match. Without it, the app can't do anything. The repository stays up as a historical record; issues and pull requests won't be addressed.
+
 ### What is this?
 As soon as you accept a match you can see your opponents ranks. Additionally you can quickly access their opendota page to see your win+loss ratio vs them or to check their most picked heroes.
 
